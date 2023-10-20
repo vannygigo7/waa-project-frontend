@@ -20,6 +20,7 @@ function ProductUpdate(props){
     }
 
     const goHome = () =>{
+
         navigate('/');
     }
 
