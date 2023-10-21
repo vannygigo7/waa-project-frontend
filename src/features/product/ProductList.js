@@ -6,7 +6,7 @@ import store from "../../redux/store";
 export default function ProductList(){
     const navigate = useNavigate();
     const {products} = store.getState().products;
-    console.log("ProductList======>", store.getState().products);
+    console.log("ProductList===>", products);
 
     useEffect(()=>{
         store.dispatch(fetchProducts());

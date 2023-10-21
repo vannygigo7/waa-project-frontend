@@ -26,24 +26,27 @@ const productSlice = createSlice({
             })
             .addCase(updateProduct.fulfilled, (state, action) => {
                 console.log("updateProduct:", action.payload);
-                // const {products} = state;
-                // console.log("find id1:", state.products);
-                // const updatedProduct = action.payload;
-                // console.log(products.map(p => {return (p.id === updatedProduct.id ? updatedProduct : p);}));
-                // state.products = products;
-                // console.log("find id:", products);
+                const {products} = state;
+                const index = products.findIndex(p => p.id === action.payload.id);
+                products[index] = {
+                    ...products[index],
+                    ...action.payload,
+                };
                 return state;
             })
             .addCase(addProduct.fulfilled, (state, action) => {
-                console.log("addProduct 1:", action.payload);
+                console.log("addProduct:", action.payload);
                 state.products = [...state.products, action.payload];
                 return state;
             })
             .addCase(deleteProduct.fulfilled, (state, action) => {
                 console.log("deleteProduct:", action.payload);
+                const {products} = state;
+                const index = products.findIndex(({ id }) => id === action.payload.id);
+                products.splice(index, 1);
                 return state;
             })
-            .addDefaultCase((state, action) => {})
+            .addDefaultCase((state, action) => state)
     },
 });
 
@@ -77,6 +80,8 @@ export const addProduct = createAsyncThunk(
 export const updateProduct = createAsyncThunk(
     `${PRODUCT_SLIDE}/update`,
     async ({id, product} ) => {
+        // const sleep = ms => new Promise(r => setTimeout(r, ms));
+        // await sleep(2000)
         const response =  await productService.update(id, product);
         console.log("updateProduct===>", response);
         return response.data;

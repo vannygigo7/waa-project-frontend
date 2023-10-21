@@ -15,25 +15,33 @@ export default function ProductAdd(){
         navigate('/');
     }
     function saveProduct(){
-        store.dispatch(addProduct({product}));
-        goHome();
+        store.dispatch(addProduct({product}))
+            .then(()=>{
+                goHome();
+            })
+            .catch(()=>{
+
+            });
     }
 
     return (
         <div style={{width:'500px'}}>
             <div className="form-group">
-                <label htmlFor="title">Title</label>
-                <input onChange={changedHandler} name='title'  className="form-control" placeholder="Title"/>
+                <label>Title
+                    <input onChange={changedHandler} name='title'  className="form-control" placeholder="Title"/>
+                </label>
             </div>
             <div className="form-group">
-                <label htmlFor="price">Price</label>
-                <input onChange={changedHandler} name='price' className="form-control" placeholder="Price"/>
+                <label>Price
+                    <input onChange={changedHandler} name='price' className="form-control" placeholder="Price"/>
+                </label>
             </div>
             <div className="form-group">
-                <label htmlFor="exampleInputPassword1">Quantity</label>
-                <input onChange={changedHandler} name='quantity' className="form-control" placeholder="Quantity"/>
+                <label>Quantity
+                    <input onChange={changedHandler} name='quantity' className="form-control" placeholder="Quantity"/>
+                </label>
             </div>
-            <button className="btn btn-default" onClick={goHome}>Cancel</button>
+            <button className="btn btn-secondary" onClick={goHome}>Cancel</button>
             <button className="btn btn-primary" onClick={saveProduct}>Add</button>
             {/*<ResponseMessage status={responseStatus}/>*/}
         </div>
