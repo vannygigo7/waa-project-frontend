@@ -3,13 +3,16 @@ import ProductItem from "./ProductItem";
 import {useEffect} from "react";
 import {fetchProducts} from "./ProductSlice";
 import store from "../../redux/store";
+import {ToastContainer} from "react-toastify";
 export default function ProductList(){
     const navigate = useNavigate();
     const {products} = store.getState().products;
     console.log("ProductList===>", products);
 
     useEffect(()=>{
-        store.dispatch(fetchProducts());
+        store.dispatch(fetchProducts())
+            .then(()=>{})
+            .catch(()=>{});
     },[]);
 
     const newProduct = () => {
@@ -17,8 +20,13 @@ export default function ProductList(){
     }
 
     return (
-        <div style={{ width: '800px' }}>
-            <button className="btn btn-primary" onClick={newProduct}>New</button>
+        <div style={{width:'800px'}}>
+            <div className="d-flex justify-content-between">
+                <h2 className="align-self-start">Product List</h2>
+                <div className="align-self-end">
+                    <button className="btn btn-primary" onClick={newProduct}>New</button>
+                </div>
+            </div>
             <table className="table">
                 <thead className="thead-dark">
                     <tr>
@@ -35,6 +43,7 @@ export default function ProductList(){
                     )}
                 </tbody>
             </table>
+            <ToastContainer />
         </div>
     );
 }
