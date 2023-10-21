@@ -2,23 +2,23 @@ import http from '../config/http';
 
 const endpoint = '/products';
 const getAll = () =>{
-   return   http.get(endpoint);
+   return http.get(endpoint);
 }
 
 const get = (id) =>{
-    return   http.get(`${endpoint}/${id}`);
+    return http.get(`${endpoint}/${id}`);
 }
 
 const add = (data) =>{
-    return   http.post(endpoint, data);
+    return http.post(endpoint, data);
 }
 
 const update = (id, data) =>{
-    return   http.put(`${endpoint}/${id}`, data);
+    return http.put(`${endpoint}/${id}`, data);
 }
 
 const remove = (id) =>{
-    return   http.delete(`${endpoint}/${id}`);
+    return http.delete(`${endpoint}/${id}`);
 }
 
 const ProductService = {

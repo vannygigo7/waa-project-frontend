@@ -1,8 +1,9 @@
 import {useRoutes} from "react-router-dom";
-import ProductList from "../containers/product";
 import NoMatchRoute from "./NoMatchRoute";
-import ProductAdd from "../containers/product/ProductAdd";
-import ProductUpdate from "../containers/product/ProductUpdate";
+import ProductList from "../features/product/ProductList";
+import ProductUpdate from "../features/product/ProductUpdate";
+import ProductAdd from "../features/product/ProductAdd";
+
 
 export default function MyRoute(){
     return useRoutes([
