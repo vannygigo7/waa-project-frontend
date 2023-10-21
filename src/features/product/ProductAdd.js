@@ -1,7 +1,8 @@
-
 import {useNavigate} from "react-router-dom";
 import store from "../../redux/store";
 import {addProduct} from "./ProductSlice";
+import {ToastContainer} from "react-toastify";
+import {showToast} from "../../utils/utilFunctions";
 export default function ProductAdd(){
     const navigate = useNavigate();
     const product = {};
@@ -16,8 +17,10 @@ export default function ProductAdd(){
     }
     function saveProduct(){
         store.dispatch(addProduct({product}))
-            .then(()=>{
-                goHome();
+            .then((value)=>{
+                console.log(store.getState().products);
+                const {status, statusText} = value.payload;
+                showToast(status, statusText);
             })
             .catch(()=>{
 
@@ -25,7 +28,8 @@ export default function ProductAdd(){
     }
 
     return (
-        <div style={{width:'500px'}}>
+        <div style={{width:'800px'}}>
+            <h2>New Product</h2>
             <div className="form-group">
                 <label>Title
                     <input onChange={changedHandler} name='title'  className="form-control" placeholder="Title"/>
@@ -41,9 +45,10 @@ export default function ProductAdd(){
                     <input onChange={changedHandler} name='quantity' className="form-control" placeholder="Quantity"/>
                 </label>
             </div>
-            <button className="btn btn-secondary" onClick={goHome}>Cancel</button>
+            <div className="mt-3"></div>
+            <button className="btn btn-secondary me-3" onClick={goHome}>Cancel</button>
             <button className="btn btn-primary" onClick={saveProduct}>Add</button>
-            {/*<ResponseMessage status={responseStatus}/>*/}
+            <ToastContainer/>
         </div>
     );
 }

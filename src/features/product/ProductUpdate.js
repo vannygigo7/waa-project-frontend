@@ -1,23 +1,31 @@
-
 import {useNavigate, useParams} from "react-router-dom";
 import store from "../../redux/store";
 import {deleteProduct, fetchProductById, updateProduct} from "./ProductSlice";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
+import {ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import {showToast} from "../../utils/utilFunctions";
 
 export default function ProductUpdate(props){
     const navigate = useNavigate();
     const {id} = useParams();
-    const {products} =  store.getState().products;
-    let originalProduct = products.find(p=>p.id === (id * 1));
+    // let originalProduct = {};
+    const [originalProduct, setOriginalProduct] = useState(null);
     let tempProduct = {};
 
     useEffect(()=>{
-        store.dispatch(fetchProductById({id}));
-    },[]);
-
+        store.dispatch(fetchProductById({id}))
+            .then((value)=>{
+                const {data} = value.payload;
+                setOriginalProduct(data);
+            })
+            .catch((e)=>{
+                console.log("fetchProductById Handler:", e);
+            });
+    },[id, setOriginalProduct]);
 
     if(!originalProduct){
-        return <p>Product is not found.</p>
+        return <h2>Product is not found.</h2>
     }else{
         tempProduct = {...originalProduct};
     }
@@ -28,21 +36,21 @@ export default function ProductUpdate(props){
 
     function deleteProductHandler(){
         store.dispatch(deleteProduct({id}))
-            .then(()=>{
+            .then((value)=>{
                 goHome();
             })
-            .catch(()=>{
-
+            .catch((e)=>{
+                console.log("deleteProductHandler:", e);
             });
     }
 
     function updateProductHandler(){
         store.dispatch(updateProduct({id, product: tempProduct}))
-            .then(()=>{
-                    goHome();
+            .then((value)=>{
+                const {status, statusText} = value.payload;
+                showToast(status, statusText);
             })
             .catch(()=>{
-
             });
     }
 
@@ -52,7 +60,8 @@ export default function ProductUpdate(props){
     }
 
     return (
-        <div style={{width:'500px'}}>
+        <div style={{width:'800px'}}>
+            <h2>Product</h2>
             <p>Title: {originalProduct.title}</p>
             <p>Price: {originalProduct.price}</p>
             <p>Quantity: {originalProduct.quantity}</p>
@@ -62,7 +71,7 @@ export default function ProductUpdate(props){
                     </label>
                 </div>
                 <div className="form-group">
-                    <label >Price
+                    <label>Price
                         <input onChange={changedHandler} name='price' defaultValue={originalProduct.price}  className="form-control" placeholder="Price"/>
                     </label>
                     </div>
@@ -71,10 +80,11 @@ export default function ProductUpdate(props){
                         <input onChange={changedHandler} name='quantity' defaultValue={originalProduct.quantity}  className="form-control" placeholder="Quantity"/>
                     </label>
                 </div>
-            <button type="button" className="btn btn-secondary" onClick={goHome}>Cancel</button>
-            <button type="button" className="btn btn-danger" onClick={deleteProductHandler}>Delete</button>
+            <div className="mt-3"></div>
+            <button type="button" className="btn btn-secondary me-3" onClick={goHome}>Cancel</button>
+            <button type="button" className="btn btn-danger me-3" onClick={deleteProductHandler}>Delete</button>
             <button type="button" className="btn btn-primary" onClick={updateProductHandler}>Update</button>
-            {/*<ResponseMessage status={status}/>*/}
+            <ToastContainer />
         </div>
     );
 }
