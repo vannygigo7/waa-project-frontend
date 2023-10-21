@@ -1,22 +1,21 @@
-import {useNavigate} from "react-router-dom";
-import {connect} from "react-redux";
-import {addProductAction} from "../../redux/actions/product";
-function ProductAdd(props){
-    const navigate = useNavigate();
 
-    const { add} = props;
-    const tempProduct = {};
+import {useNavigate} from "react-router-dom";
+import store from "../../redux/store";
+import {addProduct} from "./ProductSlice";
+export default function ProductAdd(){
+    const navigate = useNavigate();
+    const product = {};
 
     const changedHandler = e =>{
         const {name, value} = e.target;
-        tempProduct[name] = value;
+        product[name] = value;
     }
 
     const goHome = ()=>{
         navigate('/');
     }
     function saveProduct(){
-        add(tempProduct);
+        store.dispatch(addProduct({product}));
         goHome();
     }
 
@@ -40,8 +39,3 @@ function ProductAdd(props){
         </div>
     );
 }
-
-export default connect(
-    state=>({products: state.products}),
-    {add: addProductAction}
-)(ProductAdd);

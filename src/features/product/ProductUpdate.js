@@ -1,17 +1,20 @@
-import {useNavigate, useParams} from "react-router-dom";
-import {connect} from "react-redux";
-import {deleteProductAction, updateProductAction} from "../../redux/actions/product";
-// import ProductService from "../service/ProductService";
-// import ResponseMessage from "./ResponseMessage";
 
-function ProductUpdate(props){
+import {useNavigate, useParams} from "react-router-dom";
+import store from "../../redux/store";
+import {deleteProduct, fetchProductById, updateProduct} from "./ProductSlice";
+import {useEffect} from "react";
+
+export default function ProductUpdate(props){
     const navigate = useNavigate();
-    // const [responseStatus, setResponseStatus] = useState(null);
-    // const [originalProduct, setOriginalProduct] = useState(null);
     const {id} = useParams();
-    const {products, updateProduct, deleteProduct} =  props;
+    const {products} =  store.getState().products;
+    console.log(store.getState().products);
     let originalProduct = products.find(p=>p.id === (id * 1));
     let tempProduct = {};
+
+    useEffect(()=>{
+        store.dispatch(fetchProductById({id}));
+    },[]);
 
     if(!originalProduct){
         return <p>Product is not found.</p>
@@ -20,17 +23,17 @@ function ProductUpdate(props){
     }
 
     const goHome = () =>{
-
         navigate('/');
     }
 
     function deleteProductHandler(){
-        deleteProduct(id);
+        store.dispatch(deleteProduct({id}));
+        console.log("deleted");
         goHome();
     }
 
     function updateProductHandler(){
-        updateProduct(id, tempProduct);
+        store.dispatch(updateProduct({id, product: tempProduct}));
         console.log("updated");
         goHome();
     }
@@ -60,12 +63,7 @@ function ProductUpdate(props){
             <button className="btn btn-default" onClick={goHome}>Cancel</button>
             <button className="btn btn-danger" onClick={deleteProductHandler}>Delete</button>
             <button className="btn btn-primary" onClick={updateProductHandler}>Update</button>
-            {/*<ResponseMessage status={responseStatus}/>*/}
+            {/*<ResponseMessage status={status}/>*/}
         </div>
     );
 }
-
-export default connect(
-    state => ({products: state.products}),
-    {updateProduct: updateProductAction, deleteProduct: deleteProductAction}
-)(ProductUpdate);

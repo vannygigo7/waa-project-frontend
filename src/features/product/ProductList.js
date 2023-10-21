@@ -1,21 +1,21 @@
 import {useNavigate} from "react-router-dom";
 import ProductItem from "./ProductItem";
 import {useEffect} from "react";
-import {connect} from "react-redux";
-import {getProductsAction} from "../../redux/actions/product";
-
-function ProductList(props){
+import {fetchProducts} from "./ProductSlice";
+import store from "../../redux/store";
+export default function ProductList(){
     const navigate = useNavigate();
-    const {products, action} = props;
-    console.log("ProductList======>", props);
+    const {products} = store.getState().products;
+    console.log("ProductList======>", store.getState().products);
 
     useEffect(()=>{
-        action();
-    },[action]);
+        store.dispatch(fetchProducts());
+    },[]);
 
     const newProduct = ()=>{
         navigate('/products/add');
     }
+
     return (
         <div style={{width:'800px'}}>
             <button className="btn btn-primary" onClick={newProduct}>New</button>
@@ -38,8 +38,3 @@ function ProductList(props){
         </div>
     );
 }
-
-export default connect(
-    state => ({products: state.products}),
-    {action: getProductsAction}
-)(ProductList);

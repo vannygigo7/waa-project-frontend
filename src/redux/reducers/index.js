@@ -1,4 +1,4 @@
 import {combineReducers} from "redux";
-import productReducer from "./product";
+import productReducer from "../../features/product/ProductSlice";
 
 export const allReducers = combineReducers({products: productReducer});
