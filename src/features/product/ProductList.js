@@ -1,4 +1,4 @@
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ProductItem from "./ProductItem";
 import {useEffect} from "react";
 import {fetchProducts} from "./ProductSlice";
@@ -15,7 +15,7 @@ export default function ProductList(){
             .catch(()=>{});
     },[]);
 
-    const newProduct = ()=>{
+    const newProduct = () => {
         navigate('/products/add');
     }
 
@@ -29,18 +29,18 @@ export default function ProductList(){
             </div>
             <table className="table">
                 <thead className="thead-dark">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Action</th>
-                </tr>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Action</th>
+                    </tr>
                 </thead>
                 <tbody>
-                {products.map((product, index) =>
-                    <ProductItem key={product.id} {...{index, product}}/>
-                )}
+                    {products.map((product, index) =>
+                        <ProductItem key={product.id} {...{ index, product }} />
+                    )}
                 </tbody>
             </table>
             <ToastContainer />

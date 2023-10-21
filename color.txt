@@ -1,0 +1,2 @@
+#7E57C2 primary
+#009DD1 secondary
