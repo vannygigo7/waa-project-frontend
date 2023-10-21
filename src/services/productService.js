@@ -1,32 +1,5 @@
-import http from '../config/http';
+import {PRODUCT_ENDPOINT} from "../constant/endpoint";
+import apiService from "./apiService";
 
-const endpoint = '/products';
-const getAll = () =>{
-   return http.get(endpoint);
-}
-
-const get = (id) =>{
-    return http.get(`${endpoint}/${id}`);
-}
-
-const add = (data) =>{
-    return http.post(endpoint, data);
-}
-
-const update = (id, data) =>{
-    return http.put(`${endpoint}/${id}`, data);
-}
-
-const remove = (id) =>{
-    return http.delete(`${endpoint}/${id}`);
-}
-
-const ProductService = {
-    getAll,
-    get,
-    add,
-    update,
-    remove
-};
-
+const ProductService = new apiService(PRODUCT_ENDPOINT);
 export default ProductService;
