@@ -8,6 +8,7 @@ import todoIcon from "../assets/images/to-do-list.webp";
 import smartphoneIcon from "../assets/images/smartphone.png";
 import gearIcon from "../assets/images/gear.png";
 import Footer from "./Footer";
+import { Link } from "react-router-dom";
 
 export default function LandingPage() {
     return (
@@ -20,7 +21,9 @@ export default function LandingPage() {
                             <div>
                                 <h1 className="big-des-text-color">A Simpler Way to Run Your Nonprofit Auctions</h1>
                                 <p className="mt-3">AuctionSnap is an easy-to-use, cost-efficient nonprofit auction tool with mobile bidding. Whether you are holding an in-person, online, or hybrid auction, AuctionSnap will streamline the process.</p>
-                                <a className="btn primary-btn">Bid Now</a>
+                                <Link to={`/login`}>
+                                    <button className="btn primary-btn">Bid Now</button>
+                                </Link>
                             </div>
                         </div>
                     </div>

@@ -8,6 +8,8 @@ import LoginForm from "./LoginForm";
 import AuctionDetail from "../features/auction/AuctionDetail";
 import HomePage from "../pages/home/HomePage";
 import AuctionList from "../features/auction/AuctionList";
+import RegisterForm from "./RegisterForm";
+import AddProduct from "../pages/home/components/AddProduct";
 
 
 export default function MyRoute() {
@@ -15,6 +17,7 @@ export default function MyRoute() {
         {path:'*', element: <NoMatchRoute/>},
         {path:'/', element: <LandingPage/>},
         {path:'/login', element: <LoginForm/>},
+        {path:'/register', element: <RegisterForm/>},
         {path: '/home', element: <HomePage/>},
         {path: '/auctions/:id', element: <AuctionDetail/>},
         {path: '/products', element: <ProductList/>},
@@ -22,5 +25,6 @@ export default function MyRoute() {
         {path: '/products/add', element: <ProductAdd/>},
         {path: '/customers/auctions', element: <AuctionList/>},
         {path: '/customers/auctions/:id', element: <AuctionDetail/>},
+        {path: '/products/add-new', element: <AddProduct/>},
     ]);
 }
