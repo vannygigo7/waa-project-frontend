@@ -5,7 +5,7 @@ export default function LoginForm() {
     return (
         <div className="container">
             <div className="mx-auto py-5 my-3" style={{ width: "400px" }}>
-                <div class="text-center mt-5 mb-3">
+                <div className="text-center mt-5 mb-3">
                     <Link to={`/`}>
                         <img src={logoIcon} className="rounded" alt="..." style={{ width: "100px" }} />
                     </Link>
