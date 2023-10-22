@@ -4,6 +4,7 @@ import LandingPage from "./LandingPage";
 import ProductList from "../features/product/ProductList";
 import ProductUpdate from "../features/product/ProductUpdate";
 import ProductAdd from "../features/product/ProductAdd";
+import LoginForm from "./LoginForm";
 
 
 export default function MyRoute(){
@@ -13,5 +14,6 @@ export default function MyRoute(){
         {path:'/products', element: <ProductList/>},
         {path:'/products/:id', element: <ProductUpdate/>},
         {path:'/products/add', element: <ProductAdd/>},
+        {path:'/login', element: <LoginForm/>},
     ]);
 }
