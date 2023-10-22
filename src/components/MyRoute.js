@@ -8,13 +8,15 @@ import LoginForm from "./LoginForm";
 import AuctionDetail from "../features/auction/AuctionDetail";
 import HomePage from "../pages/home/HomePage";
 import AuctionList from "../features/auction/AuctionList";
+import SellerAuctionList from "../features/seller/auction/SellerAuctionList";
+import SellerAuctionDetail from "../features/seller/auction/SellerAuctionDetail";
 
 
 export default function MyRoute() {
     return useRoutes([
-        {path:'*', element: <NoMatchRoute/>},
-        {path:'/', element: <LandingPage/>},
-        {path:'/login', element: <LoginForm/>},
+        {path: '*', element: <NoMatchRoute/>},
+        {path: '/', element: <LandingPage/>},
+        {path: '/login', element: <LoginForm/>},
         {path: '/home', element: <HomePage/>},
         {path: '/auctions/:id', element: <AuctionDetail/>},
         {path: '/products', element: <ProductList/>},
@@ -22,5 +24,7 @@ export default function MyRoute() {
         {path: '/products/add', element: <ProductAdd/>},
         {path: '/customers/auctions', element: <AuctionList/>},
         {path: '/customers/auctions/:id', element: <AuctionDetail/>},
+        {path: '/sellers/auctions', element: <SellerAuctionList/>},
+        {path: '/sellers/auctions/:id', element: <SellerAuctionDetail/>},
     ]);
 }

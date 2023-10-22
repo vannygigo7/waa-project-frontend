@@ -1,0 +1,15 @@
+export const ROUTE = {
+    NOT_MATCH: '*',
+    LANDING: '/',
+    LOGIN: '/login',
+    REGISTER: '/register',
+    HOME: '/home',
+    CUSTOMER_AUCTION: '/customers/auctions',
+    CUSTOMER_AUCTION_DETAIL: '/customers/auctions/:id',
+    SELLER_PRODUCT: '/sellers/products',
+    SELLER_PRODUCT_ADD: '/sellers/products/add',
+    SELLER_PRODUCT_UPDATE: '/sellers/products/update',
+    SELLER_PRODUCT_DETAIL: '/sellers/products/:id',
+    SELLER_AUCTION: '/sellers/auctions',
+    SELLER_AUCTION_DETAIL: '/sellers/auctions/:id',
+};

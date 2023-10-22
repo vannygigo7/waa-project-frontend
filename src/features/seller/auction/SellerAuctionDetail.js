@@ -1,4 +1,4 @@
-export default function AuctionDetail() {
+export default function SellerAuctionDetail() {
 
     return (
         <div>
@@ -15,7 +15,7 @@ export default function AuctionDetail() {
                                                  width="100%" alt=""/>
                                         </div>
                                     </div>
-                                    <div className="product ms-4">
+                                    <div className="ms-4">
                                         <div className="mb-2">
                                             <h5>Men's slim fit t-shirt</h5>
                                             <div className="mb-2">
@@ -36,12 +36,12 @@ export default function AuctionDetail() {
                                     </div>
                                 </div>
                                 <div className="col-md-6">
-                                    <div className="product me-3">
+                                    <div className="me-3">
                                         <div className="mt-4 mb-3">
-                                            <h3>Auction</h3>
+                                            <h3 className="text-primary">Auction</h3>
                                             <div className="price d-flex flex-row align-items-center">
-                                                <div className="ml-2"><small className="dis-price">current
-                                                    bid <h3>$59</h3></small>
+                                                <div className="ml-2">
+                                                    <small className="dis-price">Current bid <h3>$60</h3></small>
                                                 </div>
                                             </div>
                                             <div className="align-self-end mt-1"><i className="bi bi-clock"> </i>
@@ -50,12 +50,11 @@ export default function AuctionDetail() {
                                         </div>
 
                                         <div className="cart mt-4 align-items-center">
-                                            <label className="mb-2">
-                                                Please increase your bid at least <b>$1</b>
-                                            </label>
-                                            <input type="text" className="form-control" placeholder="Enter amount"/>
+                                            <p className="mb-2">
+                                                <i className="bi bi-cash"> </i> Deposit amount <b>$6</b>
+                                            </p>
                                             <button className="btn btn-danger mr-2 mt-3 px-4" onClick={() => {
-                                            }}> Place Bid
+                                            }}> End Auction
                                             </button>
                                         </div>
                                     </div>
