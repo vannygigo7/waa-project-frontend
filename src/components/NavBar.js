@@ -11,7 +11,9 @@ export default function NavBar() {
                         <Link to={`/login`}>
                         <button className="btn primary-btn" style={{ marginRight: "10px" }}>Login</button>
                         </Link>
+                        <Link to={`/register`}>
                         <button className="btn signup-btn">Join us</button>
+                        </Link>
                     </div>
                 </div>
             </nav>
