@@ -13,6 +13,7 @@ import SellerAuctionDetail from "../features/seller/auction/SellerAuctionDetail"
 import RegisterForm from "./RegisterForm";
 import AddProduct from "../pages/home/components/AddProduct";
 import SellerAuctionList from "../features/seller/auction/SellerAuctionList";
+import SellerProductList from "../features/seller/product/SellerProductList";
 
 
 export default function MyRoute() {
@@ -30,6 +31,7 @@ export default function MyRoute() {
         {path: '/customers/auctions/:id', element: <AuctionDetail/>},
         {path: '/sellers/auctions', element: <SellerAuctionList/>},
         {path: '/sellers/auctions/:id', element: <SellerAuctionDetail/>},
+        {path: '/sellers/products', element: <SellerProductList/>},
         {path: '/products/add-new', element: <AddProduct/>},
     ]);
 }
