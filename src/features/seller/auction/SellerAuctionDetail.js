@@ -1,4 +1,67 @@
+import {useParams} from "react-router-dom";
+
 export default function SellerAuctionDetail() {
+    const {id} = useParams();
+
+    const endedAuction = () => {
+        return (
+            <div className="me-3">
+                <div className="mt-4 mb-3">
+                    <h3 className="text-secondary">Ended</h3>
+                    <div className="price d-flex flex-row align-items-center">
+                        <div className="ml-2">
+                            <small className="dis-price">Highest bid <h3>$60</h3></small>
+                        </div>
+                    </div>
+                    <div className="align-self-end mt-2">
+                        <i className="bi bi-cash"> </i> Deposit amount <b>$6</b>
+                    </div>
+                    <div className="align-self-end mt-2">
+                        <i className="bi bi-calendar-check"> </i>Ended: October 10, 2023 at 10:30 pm
+                    </div>
+                    <div className="align-self-end mt-2">
+                        <i className="bi bi-calendar"> </i>Payment due: October 10, 2023 at 10:30 pm
+                    </div>
+                    <div className="align-self-end mt-2">
+                        <i className="bi bi-credit-card"> </i>Customer payment: Not yet
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    const runningAuction = () => {
+        return (
+            <div className="me-3">
+                <div className="mt-4 mb-3">
+                    <h3 className="text-primary">Running</h3>
+                    <div className="price d-flex flex-row align-items-center">
+                        <div className="ml-2">
+                            <small className="dis-price">Current bid <h3>$60</h3></small>
+                        </div>
+                    </div>
+                    <div className="align-self-end mt-2">
+                        <i className="bi bi-cash"> </i> Deposit amount <b>$6</b>
+                    </div>
+                    <div className="align-self-end mt-2">
+                        <i className="bi bi-calendar"> </i>Payment due: October 10, 2023 at 10:30 pm
+                    </div>
+                    <div className="align-self-end mt-2"><i className="bi bi-clock"> </i>
+                        12 hours 30 mn
+                    </div>
+                    <button className="btn btn-danger mr-2 mt-3 px-4" onClick={() => {
+                    }}> End Auction
+                    </button>
+                </div>
+
+            </div>
+        );
+    }
+
+    const getAuction = ({id}) => {
+        console.log(id);
+        return ((id * 1) % 2 === 0) ? runningAuction() : endedAuction();
+    }
 
     return (
         <div>
@@ -36,28 +99,7 @@ export default function SellerAuctionDetail() {
                                     </div>
                                 </div>
                                 <div className="col-md-6">
-                                    <div className="me-3">
-                                        <div className="mt-4 mb-3">
-                                            <h3 className="text-primary">Auction</h3>
-                                            <div className="price d-flex flex-row align-items-center">
-                                                <div className="ml-2">
-                                                    <small className="dis-price">Current bid <h3>$60</h3></small>
-                                                </div>
-                                            </div>
-                                            <div className="align-self-end mt-1"><i className="bi bi-clock"> </i>
-                                                12 hours 30 mn
-                                            </div>
-                                        </div>
-
-                                        <div className="cart mt-4 align-items-center">
-                                            <p className="mb-2">
-                                                <i className="bi bi-cash"> </i> Deposit amount <b>$6</b>
-                                            </p>
-                                            <button className="btn btn-danger mr-2 mt-3 px-4" onClick={() => {
-                                            }}> End Auction
-                                            </button>
-                                        </div>
-                                    </div>
+                                    {getAuction({id})}
                                 </div>
                             </div>
                         </div>

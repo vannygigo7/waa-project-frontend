@@ -1,4 +1,54 @@
-export default function AuctionTile({id}) {
+export default function AuctionTile(props) {
+
+    const {auction} = props;
+    console.log(`AuctionTile: ${props}`);
+
+    const endedAuction = () => {
+        return (
+            <div className="col-md-12">
+                <h3 className="text-primary">Mystery Box</h3>
+                <div className="price d-flex flex-row align-items-center">
+                    <div>
+                        <small className="dis-price">highest bid <h3>$59</h3></small>
+                    </div>
+                </div>
+                <div className="align-self-end">
+                    <i className="bi bi-trophy"> </i>
+                </div>
+                <div className="mt-1 align-self-end">
+                    <small><i className="bi bi-calendar-check"> </i>
+                        23/10/2023 at 10:30pm
+                    </small>
+                </div>
+            </div>
+        );
+    }
+    const runningAuction = () => {
+        return (
+            <div className="col-md-12">
+                <h3 className="text-secondary">Mystery Box</h3>
+                <div className="price d-flex flex-row align-items-center">
+                    <div>
+                        <small className="dis-price">highest bid <h3>$59</h3></small>
+                    </div>
+                </div>
+                <div className="align-self-end">
+                    <i className="bi bi-trophy"> </i>
+                </div>
+                <div className="mt-1 align-self-end">
+                    <small><i className="bi bi-calendar-check"> </i>
+                        23/10/2023 at 10:30pm
+                    </small>
+                </div>
+            </div>
+        );
+    }
+
+    const getAuction = (auction) => {
+        console.log(auction.auction);
+        return ((auction * 1) % 2 !== 0) ? runningAuction() : endedAuction();
+    }
+
     return (
         <div className="col-md-6">
             <div className="card my-2">
@@ -13,24 +63,9 @@ export default function AuctionTile({id}) {
                         </div>
                     </div>
                     <div className="col-md-6">
-                        <div className="col-md-12">
-                            <h3 className="text-success">Mystery Box</h3>
-                            <div className="price d-flex flex-row align-items-center">
-                                <div>
-                                    <small className="dis-price">highest bid <h3>$59</h3></small>
-                                </div>
-                            </div>
-                            <div className="align-self-end">
-                                <i className="bi bi-trophy"> </i>
-                            </div>
-                            <div className="mt-1 align-self-end">
-                                <small><i className="bi bi-calendar-check"> </i>
-                                    23/10/2023 at 10:30pm
-                                </small>
-                            </div>
-                        </div>
+                        {getAuction({auction})}
                     </div>
-                    <a href={`/customers/auctions/${id}`} className="stretched-link"/>
+                    <a href={`/customers/auctions/1`} className="stretched-link"/>
                 </div>
             </div>
         </div>
