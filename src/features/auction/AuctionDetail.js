@@ -17,7 +17,7 @@ export default function AuctionDetail() {
                                     </div>
                                     <div className="product ms-4">
                                         <div className="mb-2">
-                                            <h5>Men's slim fit t-shirt</h5>
+                                            <h5>Mystery Box</h5>
                                             <div className="mb-2">
                                                 <small className="me-2"><i className="bi bi-tag"> </i>electronic</small>
                                                 <small className="me-2"><i className="bi bi-tag"> </i>electronic</small>
