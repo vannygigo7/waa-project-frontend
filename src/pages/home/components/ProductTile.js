@@ -23,7 +23,7 @@ export default function ProductTile({id}) {
                     <div className="col-md-8">
                         <div className="product p-2">
                             <div>
-                                <h5>Men's slim fit t-shirt</h5>
+                                <h5>Mystery Box</h5>
                                 <div>
                                     <small className="me-2"><i className="bi bi-tag"> </i>electronic</small>
                                     <small className="me-2"><i className="bi bi-tag"> </i>electronic</small>
