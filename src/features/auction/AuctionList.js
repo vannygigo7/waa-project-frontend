@@ -15,7 +15,7 @@ export default function AuctionList() {
                         </div>
                     </div>
                     <div className="row">
-                        {[1, 2, 3, 4, 5, 6, 7].map(auction => <AuctionTile key={auction} id={auction}/>)}
+                        {[1, 2, 3, 4, 5, 6, 7].map(auction => <AuctionTile key={auction} {...{auction}}/>)}
                     </div>
                 </div>
             </div>
