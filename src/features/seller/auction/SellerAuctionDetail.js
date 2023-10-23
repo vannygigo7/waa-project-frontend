@@ -25,7 +25,7 @@ export default function SellerAuctionDetail() {
                                             <div className="d-flex flex-row align-items-center">
                                                 <div className="ml-2">
                                                     <small className="dis-price"><i
-                                                        className="bi bi-geo text-dark"></i> starting at
+                                                        className="bi bi-geo text-dark"></i> started at
                                                     </small>
                                                     <b> $30</b>
                                                 </div>
