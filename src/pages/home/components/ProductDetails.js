@@ -1,3 +1,5 @@
+import AuctionDetail from "../../../features/auction/AuctionDetail";
+import SellerAuctionDetail from "../../../features/seller/auction/SellerAuctionDetail";
 
 export default function ProductDetails() {
     return (
@@ -32,6 +34,9 @@ export default function ProductDetails() {
                     </div>
                 </div>
             </div>
+            <div className="container">
+                    <SellerAuctionDetail/>
+                </div>
         </div>
     );
 }
