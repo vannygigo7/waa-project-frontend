@@ -10,6 +10,7 @@ import HomePage from "../pages/home/HomePage";
 import AuctionList from "../features/auction/AuctionList";
 import RegisterForm from "./RegisterForm";
 import AddProduct from "../pages/home/components/AddProduct";
+import ProductDetails from "../pages/home/components/ProductDetails";
 
 
 export default function MyRoute() {
@@ -26,5 +27,6 @@ export default function MyRoute() {
         {path: '/customers/auctions', element: <AuctionList/>},
         {path: '/customers/auctions/:id', element: <AuctionDetail/>},
         {path: '/products/add-new', element: <AddProduct/>},
+        {path: '/products/view', element: <ProductDetails/>},
     ]);
 }
