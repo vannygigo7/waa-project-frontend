@@ -8,15 +8,40 @@ export default function AddProduct() {
     function handleGetDataAndSubmit(e) {
         e.preventDefault();
         const form = new FormData(e.currentTarget);
-        // const title = form.get("title");
-        // const description = form.get("description");
-        // console.log({ title, description });
-        const body = {};
-        for (const [key, value] of form.entries()) {
-            body[key] = value;
+        const title = form.get("title");
+        const description = form.get("description");
+        const categories = form.get("categories");
+
+        const startPrice = form.get("startPrice");
+        const depositAmount = form.get("depositAmount");
+        const highestBid = form.get("highestBid");
+        const bidDueDate = form.get("bidDueDate");
+        const bidDueTime = form.get("bidDueTime");
+
+        const seller = {
+            //put seller object here
         }
-        console.log(body);
-        // Do Further input validation and submit the form
+
+        const auction = {
+            startPrice,
+            depositAmount,
+            highestBid,
+            bidDueDateTime: bidDueDate + " " + bidDueTime,
+            bids: [],
+            winner: null
+
+        }
+
+        const productObj = {
+            title,
+            description,
+            released: isRelease,
+            categories: [{name: categories}],
+            seller,
+            auction
+        }
+
+        console.log("Product: ", productObj);
 
         if(isRelease){
             onRelease();
@@ -48,12 +73,15 @@ export default function AddProduct() {
                     </div>
                     <div className="mb-3">
                         <label htmlFor="category-names" className="form-label">Category</label><br />
-                        <select name="categoryNames" id="category-names" className="form-control">
-                            <option value="other"></option>
+                        <select name="categories" id="category-names" className="form-control">
                             <option value="a">A</option>
                             <option value="b">B</option>
-                            <option value="other">Other</option>
+                            <option value="c">C</option>
                         </select>
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="exampleFormControlInput1" className="form-label">Image url</label>
+                        <input name="imageUrl" type="text" className="form-control" id="exampleFormControlInput1" placeholder="" />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="exampleFormControlTextarea1" className="form-label">Description</label>
@@ -85,7 +113,7 @@ export default function AddProduct() {
                         <input name="bidDueTime" type="time" className="form-control" id="exampleFormControlInput1" placeholder="" />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="exampleFormControlInput1" className="form-label">Pay date</label>
+                        <label htmlFor="exampleFormControlInput1" className="form-label">Payment due date</label>
                         <input name="payDate" type="date" className="form-control" id="exampleFormControlInput1" placeholder="" />
                     </div>
                     <div className="mb-3 text-end mt-4">
