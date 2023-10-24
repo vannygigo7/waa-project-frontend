@@ -1,6 +1,26 @@
+import {useEffect, useState} from "react";
+import store from "../../redux/store";
+
 import ProductTile from "./components/ProductTile";
+import {fetchHomeProducts} from "./HomeSlice";
 
 export default function HomePage() {
+
+    const [products, setProducts] = useState(null);
+    // let {products} = store.getState();
+    console.log("HomePage: ", products);
+
+    useEffect(() => {
+        store.dispatch(fetchHomeProducts())
+            .then((value) => {
+                console.log("fetchHomeProducts 1:", value);
+                setProducts(value.payload.data);
+                console.log("fetchHomeProducts 2:", products);
+            })
+            .catch(() => {
+            });
+    }, []);
+
     return (
         <div className="container mt-5 mb-5">
             <div className="row d-flex justify-content-center">
@@ -14,7 +34,7 @@ export default function HomePage() {
                             </div>
                         </div>
                     </div>
-                    {[1, 2, 3, 4, 5, 6, 7].map(product => <ProductTile key={product} id={1}/>)}
+                    {products && products.map(product => <ProductTile key={product.id} {...{product}}/>)}
                 </div>
             </div>
         </div>

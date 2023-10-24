@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import {PRODUCT_SLICE} from "../../constant/product";
-import productService from "../../services/productService";
+import productService from "../../services/sellerProductService";
+import {TEST_PRODUCT_SLICE} from "../../constant/testProduct";
 
 const initialState = {
     products: [],
@@ -9,14 +9,14 @@ const initialState = {
     status: null
 };
 
-const productSlice = createSlice({
-    name: PRODUCT_SLICE.NAME,
+const testProductSlice = createSlice({
+    name: TEST_PRODUCT_SLICE.NAME,
     initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(fetchProductsTest.fulfilled, (state, action) => {
-                console.log("fetchProducts:", action.payload);
+                console.log("fetchProductsTest reducer", action.payload);
                 const {data, status, statusText} = action.payload;
                 state = {...state, status, statusText, products: data};
                 return state;
@@ -60,17 +60,17 @@ const productSlice = createSlice({
 });
 
 export const fetchProductsTest = createAsyncThunk(
-    PRODUCT_SLICE.GET_ALL,
+    TEST_PRODUCT_SLICE.GET_ALL,
     async () => {
         const response = await productService.getAll();
-        console.log("fetchProducts===>", response);
+        console.log("test fetchProducts http===>", response);
         const {data, status, statusText} = response;
         return {data, status, statusText};
     }
 );
 
 export const fetchProductByIdTest = createAsyncThunk(
-    PRODUCT_SLICE.GET_BY_ID,
+    TEST_PRODUCT_SLICE.GET_BY_ID,
     async ({id}) => {
         const response = await productService.getById(id);
         console.log("fetchProductById===>", response);
@@ -80,7 +80,7 @@ export const fetchProductByIdTest = createAsyncThunk(
 );
 
 export const addProductTest = createAsyncThunk(
-    PRODUCT_SLICE.ADD,
+    TEST_PRODUCT_SLICE.ADD,
     async ({product}) => {
         const response = await productService.add(product);
         console.log("addProduct===>", response);
@@ -90,7 +90,7 @@ export const addProductTest = createAsyncThunk(
 );
 
 export const updateProductTest = createAsyncThunk(
-    PRODUCT_SLICE.UPDATE,
+    TEST_PRODUCT_SLICE.UPDATE,
     async ({id, product}) => {
         const response = await productService.update(id, product);
         console.log("updateProduct===>", response);
@@ -100,7 +100,7 @@ export const updateProductTest = createAsyncThunk(
 );
 
 export const deleteProductTest = createAsyncThunk(
-    PRODUCT_SLICE.DELETE,
+    TEST_PRODUCT_SLICE.DELETE,
     async ({id}) => {
         const response = await productService.remove(id);
         console.log("deleteProduct===>", response);
@@ -109,4 +109,4 @@ export const deleteProductTest = createAsyncThunk(
     }
 );
 
-export default productSlice.reducer;
+export default testProductSlice.reducer;

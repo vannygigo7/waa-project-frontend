@@ -2,7 +2,7 @@ import http from "../config/http";
 
 export default function apiService(endpoint) {
 
-    this.getAll = ({released}) => {
+    this.getAll = () => {
         return http.get(endpoint);
     }
 
