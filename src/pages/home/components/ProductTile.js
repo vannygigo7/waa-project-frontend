@@ -1,5 +1,6 @@
 import {useNavigate} from "react-router-dom";
 import {getLocalDateTime} from "../../../utils/utilFunctions";
+import {ROUTE} from "../../../constant/route";
 
 export default function ProductTile(props) {
     const navigate = useNavigate();
@@ -7,7 +8,7 @@ export default function ProductTile(props) {
     const {product} = props;
 
     const goAuctionDetail = () => {
-        navigate(`/auctions/${product.id}`);
+        navigate(ROUTE.AUCTION + `/${product.id}`);
     }
 
     return (

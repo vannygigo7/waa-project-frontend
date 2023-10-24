@@ -1,4 +1,4 @@
-export default function NoMatchRoute() {
+export default function NotFound() {
     return (
         <>
             <div className="d-flex align-items-center justify-content-center vh-100">

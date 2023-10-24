@@ -1,4 +1,4 @@
-export default function AuctionTile(props) {
+export default function CustomerAuctionTile(props) {
 
     const {auction} = props;
     console.log(`AuctionTile: ${props}`);
