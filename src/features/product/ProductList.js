@@ -1,17 +1,17 @@
 import {useNavigate} from "react-router-dom";
 import ProductItem from "./ProductItem";
 import {useEffect} from "react";
-import {fetchProducts} from "./ProductSlice";
+import {fetchProducts, fetchProductsTest} from "./ProductSlice";
 import store from "../../redux/store";
 import {ToastContainer} from "react-toastify";
 
 export default function ProductList() {
     const navigate = useNavigate();
-    const {products} = store.getState().products;
-    console.log("ProductList===>", products);
+    const {products} = store.getState().testProducts;
+    console.log("Test ProductList===>", products);
 
     useEffect(() => {
-        store.dispatch(fetchProducts())
+        store.dispatch(fetchProductsTest())
             .then(() => {
             })
             .catch(() => {

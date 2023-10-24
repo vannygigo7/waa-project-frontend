@@ -1,4 +1,25 @@
+import {useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
+import store from "../../redux/store";
+import {fetchHomeProductById} from "../../pages/home/HomeSlice";
+
 export default function AuctionDetail() {
+    const {id} = useParams();
+
+    console.log(`fetchHomeProductById: ${id}`);
+    const [product, setProduct] = useState(null);
+
+    useEffect(() => {
+        store.dispatch(fetchHomeProductById({id}))
+            .then((value) => {
+                console.log("fetchHomeProductById 111 ", value);
+                console.log("fetchHomeProductById 222 ", value.payload.data);
+                // setProduct(value.payload.data);
+                console.log("fetchHomeProductById 333 ", product);
+            })
+            .catch(() => {
+            });
+    }, []);
 
     return (
         <div>
@@ -54,7 +75,7 @@ export default function AuctionDetail() {
                                                 Please increase your bid at least <b>$1</b>
                                             </label>
                                             <input type="text" className="form-control" placeholder="Enter amount"/>
-                                            <button className="btn btn-danger mr-2 mt-3 px-4" onClick={() => {
+                                            <button className="btn btn-primary mr-2 mt-3 px-4" onClick={() => {
                                             }}> Place Bid
                                             </button>
                                         </div>
@@ -63,7 +84,6 @@ export default function AuctionDetail() {
                             </div>
                         </div>
                     </div>
-
                     <div className="col-md-4">
                         <div className="card">
                             <div className="m-3">

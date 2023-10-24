@@ -5,6 +5,7 @@ export const ROUTE = {
     REGISTER: '/register',
     HOME: '/home',
     SELLER_HOME: '/sellers/products',
+    AUCTION: '/auctions',
     CUSTOMER_AUCTION: '/customers/auctions',
     CUSTOMER_AUCTION_DETAIL: '/customers/auctions/:id',
     SELLER_PRODUCT: '/sellers/products',

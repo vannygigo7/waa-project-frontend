@@ -1,6 +1,10 @@
 import {useNavigate, useParams} from "react-router-dom";
 import store from "../../redux/store";
-import {deleteProduct, fetchProductById, updateProduct} from "./ProductSlice";
+import {
+    deleteProductTest,
+    fetchProductByIdTest,
+    updateProductTest
+} from "./ProductSlice";
 import {useEffect, useState} from "react";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -14,7 +18,7 @@ export default function ProductUpdate(props) {
     let tempProduct = {};
 
     useEffect(() => {
-        store.dispatch(fetchProductById({id}))
+        store.dispatch(fetchProductByIdTest({id}))
             .then((value) => {
                 const {data} = value.payload;
                 setOriginalProduct(data);
@@ -35,7 +39,7 @@ export default function ProductUpdate(props) {
     }
 
     function deleteProductHandler() {
-        store.dispatch(deleteProduct({id}))
+        store.dispatch(deleteProductTest({id}))
             .then((value) => {
                 goHome();
             })
@@ -45,7 +49,7 @@ export default function ProductUpdate(props) {
     }
 
     function updateProductHandler() {
-        store.dispatch(updateProduct({id, product: tempProduct}))
+        store.dispatch(updateProductTest({id, product: tempProduct}))
             .then((value) => {
                 const {status, statusText} = value.payload;
                 showToast(status, statusText);
