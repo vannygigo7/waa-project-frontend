@@ -1,1 +1,1 @@
-export const PRODUCT_ENDPOINT = '/products';
+export const SELLER_PRODUCT_ENDPOINT = '/seller/v1/products';

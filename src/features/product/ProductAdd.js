@@ -1,6 +1,6 @@
 import {useNavigate} from "react-router-dom";
 import store from "../../redux/store";
-import {addProduct} from "./ProductSlice";
+import {addProductTest, fetchProductsTest} from "./ProductSlice";
 import {ToastContainer} from "react-toastify";
 import {showToast} from "../../utils/utilFunctions";
 
@@ -18,7 +18,7 @@ export default function ProductAdd() {
     }
 
     function saveProduct() {
-        store.dispatch(addProduct({product}))
+        store.dispatch(addProductTest({product}))
             .then((value) => {
                 console.log(store.getState().products);
                 const {status, statusText} = value.payload;

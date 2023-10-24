@@ -1,9 +1,23 @@
 import {ToastContainer} from "react-toastify";
 import SellerProductTile from "./SellerProductTile";
 import {useNavigate} from "react-router-dom";
+import {useEffect} from "react";
+import store from "../../../redux/store";
+import {fetchProducts} from "./SellerProductSlice";
 
 export default function SellerProductList() {
     const navigate = useNavigate();
+    const {products} = store.getState().products;
+    console.log("ProductList===>", products);
+
+    useEffect(() => {
+        store.dispatch(fetchProducts({release: true}))
+            .then(() => {
+            })
+            .catch(() => {
+            });
+    }, []);
+
     const goNewProduct = () => {
         navigate('/products/add-new');
     }
@@ -33,8 +47,8 @@ export default function SellerProductList() {
                         </tr>
                         </thead>
                         <tbody>
-                        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((product, index) =>
-                            <SellerProductTile key={product.id} {...{index, product}} />
+                        {products.map((product, index) =>
+                            <SellerProductTile key={index} {...{index, product}} />
                         )}
                         </tbody>
                     </table>

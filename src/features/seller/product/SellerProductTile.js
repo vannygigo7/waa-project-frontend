@@ -1,4 +1,8 @@
+import {useNavigate} from "react-router-dom";
+import {ROUTE} from "../../../constant/route";
+
 export default function SellerProductTile(props) {
+    const navigate = useNavigate();
 
     const {product, index} = props;
 
@@ -7,7 +11,11 @@ export default function SellerProductTile(props) {
     }
 
     const goProductDetail = () => {
+        navigate(ROUTE.SELLER_PRODUCT + `/${product.id}`)
+    }
 
+    const checkReleased = (value) => {
+        return value ? "released" : "unreleased";
     }
 
     return (<tr key={product.id}>
@@ -17,9 +25,9 @@ export default function SellerProductTile(props) {
                  src="https://jennifermaker.com/wp-content/uploads/gift-box-templates-cricut-f-735x735.jpg"
                  width="80px" height="80px" alt=""/>
         </td>
-        <td className="align-middle">Product 1</td>
-        <td className="align-middle">$20</td>
-        <td className="align-middle">Released</td>
+        <td className="align-middle">{product.title}</td>
+        <td className="align-middle">${product.auction.startPrice}</td>
+        <td className="align-middle">{checkReleased(product.released)}</td>
         <td className="align-middle">
             <button className="btn btn-secondary mx-1" onClick={goProductDetail}><i className="bi bi-eye"></i></button>
             <button className="btn btn-secondary mx-1" onClick={goEditProduct}><i className="bi bi-pencil"></i></button>
