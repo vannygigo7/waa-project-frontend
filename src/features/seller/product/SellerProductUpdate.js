@@ -1,5 +1,7 @@
-import {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import store from "../../../redux/store";
+import { updateProduct } from "../../../features/seller/product/SellerProductSlice";
 
 
 export default function SellerProductUpdate() {
@@ -10,9 +12,9 @@ export default function SellerProductUpdate() {
     const [imageUrl, setImageUrl] = useState();
     const [categories, setCategories] = useState();
     const [startPrice, setStartPrice] = useState();
+    const [released, setReleased] = useState();
     const [depositAmount, setDepositAmount] = useState();
     const [highestBid, setHighestBid] = useState();
-    const [bidDueDateTime, setBidDueDateTime] = useState();
     const [bidDueDate, setBidDueDate] = useState();
     const [bidDueTime, setBidDueTime] = useState();
     const [payDate, setPayDate] = useState();
@@ -46,43 +48,45 @@ export default function SellerProductUpdate() {
     function handleUpdate(e) {
         e.preventDefault();
 
-        const auction = {
-            startPrice,
-            depositAmount,
-            highestBid,
-            bidDueDateTime: bidDueDate + " " + bidDueTime,
-            payDate,
-            bids: [],
-            winner: null
-
-        }
-
-        const productObj = {
-            id,
+        const product = {
             title,
             description,
-            released: true,
-            categories,
-            seller: null,
-            auction
+            imageUrl,
+            categories: [{name: categories}],
+            released,
+            startPrice,
+            depositAmount,
+            bidDueDateTime: bidDueDate + "T" + bidDueTime,
+            payDate
         }
 
-        console.log(productObj);
+        console.log("Product: ", product);
+        store.dispatch(updateProduct({id, product})).then((res)=>{
+            console.log("updateProduct:", res);
+        }).catch((e)=>{
+            console.log("error updateProduct:", e);
+        });
 
     }
 
     useEffect(() => {
-        const product = getProductById(id);
-        setTitle(product.title)
-        setDescription(product.description)
-        setCategories(product.categories)
-        setHighestBid(product.auction.highestBid)
-        setStartPrice(product.auction.startPrice)
-        setDepositAmount(product.auction.depositAmount)
+        const products = store.getState().sellerProducts.products;
+        const productFound = products.filter(pro => pro.id == id);
+        const product = productFound[0];
+        setTitle(product?.title)
+        setDescription(product?.description)
+        setCategories(product?.categories[0])
+        setImageUrl(product?.imageUrl)
+        setReleased(product?.released)
+        setHighestBid(product?.auction?.highestBid)
+        setStartPrice(product?.auction?.startPrice)
+        setDepositAmount(product?.auction?.depositAmount)
         setPayDate(product?.auction?.payDate)
-        const date = product?.auction?.bidDueDateTime.split(" ")
-        setBidDueDate(date[0])
-        setBidDueTime(date[1])
+        const date = product?.auction?.bidDueDateTime?.split("T")
+        if (date) {
+            setBidDueDate(date[0])
+            setBidDueTime(date[1])
+        }
     }, [])
 
     return (
@@ -108,8 +112,7 @@ export default function SellerProductUpdate() {
                     </div>
                     <div className="mb-3">
                         <label htmlFor="exampleFormControlInput1" className="form-label">Image url</label>
-                        <input name="imageUrl" type="text" className="form-control" id="exampleFormControlInput1"
-                               onChange={(e) => setImageUrl(e.target.value)}/>
+                        <input value={imageUrl} name="imageUrl" type="text" className="form-control" id="exampleFormControlInput1" onChange={(e) => setImageUrl(e.target.value)} />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="exampleFormControlTextarea1" className="form-label">Description</label>
@@ -153,7 +156,8 @@ export default function SellerProductUpdate() {
                                id="exampleFormControlInput1" onChange={(e) => setPayDate(e.target.value)}/>
                     </div>
                     <div className="mb-3 text-end mt-4">
-                        <button type="submit" className="btn btn-warning">Save</button>
+                        <button type="submit" className="btn btn-warning">Save</button> &nbsp;
+                        <button type="submit" className="btn btn-success" onClick={() => setReleased(true)}>Release</button>
                     </div>
                 </div>
             </form>
