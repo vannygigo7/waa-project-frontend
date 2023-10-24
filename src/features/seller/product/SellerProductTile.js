@@ -22,7 +22,7 @@ export default function SellerProductTile(props) {
         <th scope="row">{index + 1}</th>
         <td className="align-middle">
             <img className="rounded"
-                 src="https://jennifermaker.com/wp-content/uploads/gift-box-templates-cricut-f-735x735.jpg"
+                 src={product.imageUrl}
                  width="80px" height="80px" alt=""/>
         </td>
         <td className="align-middle">{product.title}</td>

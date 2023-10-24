@@ -1,12 +1,21 @@
 import {useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import store from "../../../redux/store";
 import {fetchHomeProductById} from "../HomeSlice";
-import {getLocalDateTime} from "../../../utils/utilFunctions";
+import {getLocalDateTime, showToast} from "../../../utils/utilFunctions";
+import {ToastContainer} from "react-toastify";
+import {addBid} from "../../../features/customer/CustomerSlice";
 
 export default function ProductDetail() {
     const {id} = useParams();
     const [product, setProduct] = useState(null);
+    const bidAmountInput = useRef();
+    const [timeLeft, setTimeLeft] = useState({
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0
+    });
     console.log("ProductDetail 1:", id);
 
     useEffect(() => {
@@ -15,13 +24,58 @@ export default function ProductDetail() {
         });
     }, []);
 
+    // useEffect(() => {
+    //     const targetDate = new Date(product.auction.bidDueDateTime);
+    //
+    //     const interval = setInterval(() => {
+    //         const now = new Date();
+    //         const difference = targetDate - now;
+    //
+    //         const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    //         const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    //         const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    //         const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+    //
+    //         setTimeLeft({days, hours, minutes, seconds});
+    //
+    //         if (difference < 0) {
+    //             clearInterval(interval);
+    //             setTimeLeft({days: 0, hours: 0, minutes: 0, seconds: 0});
+    //         }
+    //     }, 1000);
+    //
+    //     return () => clearInterval(interval);
+    // }, []);
+
+    const placeBid = () => {
+        const bidAmount = bidAmountInput.current.value;
+        console.log(bidAmountInput.current.value);
+        if (!bidAmount || bidAmount <= product.auction.highestBid) {
+            showToast(false, "your bid must be higher than current bid.", 3000);
+            return;
+        }
+        console.log(`ok bid: ${bidAmountInput.current.value}`);
+        const bidData = {"bidAmount1": bidAmount};
+        store.dispatch(addBid({auctionId: id, bidData}))
+            .then((value) => {
+                // console.log("then:", store.getState().customerAuctions);
+                console.log("then:", value);
+                // const {status, statusText} = value.payload;
+                // showToast(status, statusText);
+            })
+            .catch((e) => {
+                console.log("catch:", e);
+                showToast(false, 'failed to bid');
+            });
+    }
+
     const getRunningAuction = () => {
         return (
             <div className="me-3">
                 <div className="mt-4 mb-3">
                     <h3 className="text-primary">Running</h3>
                     <div className="ml-2">
-                        <small className="dis-price">Current bid <h3>$ ???</h3></small>
+                        <small className="dis-price">Current bid <h3>$ {product.auction.highestBid}</h3></small>
                     </div>
                     <div className="my-3">
                         <h4>10:20:30</h4>
@@ -32,7 +86,7 @@ export default function ProductDetail() {
                         Bidding due: {getLocalDateTime(product.auction.bidDueDateTime)}
                     </div>
                     <div className="align-self-end mt-2">
-                        <i className="bi bi-cash"> </i> Deposit amount <b>${product.auction.depositAmount}</b>
+                        <i className="bi bi-cash"> </i> Deposit amount: ${product.auction.depositAmount}
                     </div>
                     <div className="align-self-end mt-2">
                         <i className="bi bi-calendar"> </i>Payment due: {product.auction.payDate}
@@ -44,13 +98,12 @@ export default function ProductDetail() {
                         <label className="mb-2">
                             Please increase your bid at least <b>$1</b>
                         </label>
-                        <input type="text" className="form-control" placeholder="Enter amount"/>
-                        <button className="btn btn-primary mr-2 mt-3 px-4" onClick={() => {
-                        }}> Place Bid
+                        <input ref={bidAmountInput} type="number" className="form-control"
+                               placeholder="Enter amount"/>
+                        <button className="btn btn-primary mr-2 mt-3 px-4" onClick={placeBid}> Place Bid
                         </button>
                     </div>
                 </div>
-
             </div>
         );
     }
@@ -93,6 +146,14 @@ export default function ProductDetail() {
         );
     }
 
+    const showUnderline = (index, Arraylen) => {
+        return index < Arraylen - 1 ? <hr/> : '';
+    }
+
+    const getNumberOfBidders = (bidders) => {
+        return bidders > 1 ? `${bidders} people` : `${bidders} person`;
+    }
+
     const getBids = () => {
         return (
             <div className="m-3">
@@ -103,7 +164,8 @@ export default function ProductDetail() {
                         </div>
                         <div>
                             <div className="d-flex justify-content-end">
-                                <small className="text-muted">?? people</small>
+                                <small
+                                    className="text-muted">{getNumberOfBidders(product.auction.numberOfBidders)} </small>
                             </div>
                             <div className="d-flex justify-content-end">
                                 <small className="text-muted">{product.auction.bids.length} bids</small>
@@ -112,20 +174,23 @@ export default function ProductDetail() {
                     </div>
                 </div>
                 <hr/>
-                {product.auction.bids.map(b =>
-                    <div className="row">
-                        <div className="d-flex justify-content-between">
-                            <div>
-                                <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
-                                     className="rounded-circle" style={{width: '50px'}} alt="Avatar"/>
-                                <span className="ms-2">John Robin</span> <br/>
-                            </div>
-                            <div>
-                                <div className="d-flex justify-content-end"><b
-                                    className="align-self-end">$45</b></div>
-                                <div><small className="text-muted">30 mn ago</small></div>
+                {product.auction.bids.map((bid, index) =>
+                    <div key={bid.id}>
+                        <div className="row">
+                            <div className="d-flex justify-content-between">
+                                <div>
+                                    <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+                                         className="rounded-circle" style={{width: '50px'}} alt="Avatar"/>
+                                    <span className="ms-2">John Robin</span> <br/>
+                                </div>
+                                <div>
+                                    <div className="d-flex justify-content-end"><b
+                                        className="align-self-end">${bid.bidAmount}</b></div>
+                                    <div><small className="text-muted">{getLocalDateTime(bid.bidDateTime)}</small></div>
+                                </div>
                             </div>
                         </div>
+                        {showUnderline(index, product.auction.bids.length)}
                     </div>
                 )}
             </div>
@@ -154,6 +219,7 @@ export default function ProductDetail() {
                     </div>
                 </div>
             </div>
+            <ToastContainer/>
         </div>);
     }
 

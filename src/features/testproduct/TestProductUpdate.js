@@ -4,13 +4,13 @@ import {
     deleteProductTest,
     fetchProductByIdTest,
     updateProductTest
-} from "./ProductSlice";
+} from "./TestProductSlice";
 import {useEffect, useState} from "react";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import {showToast} from "../../utils/utilFunctions";
 
-export default function ProductUpdate(props) {
+export default function TestProductUpdate(props) {
     const navigate = useNavigate();
     const {id} = useParams();
     // let originalProduct = {};
@@ -24,7 +24,7 @@ export default function ProductUpdate(props) {
                 setOriginalProduct(data);
             })
             .catch((e) => {
-                console.log("fetchProductById Handler:", e);
+                console.log("fetchProductByIdTest Handler:", e);
             });
     }, [id, setOriginalProduct]);
 
