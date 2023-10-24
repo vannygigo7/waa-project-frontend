@@ -4,9 +4,9 @@ import store from "../../../redux/store";
 import { updateProduct } from "../../../features/seller/product/SellerProductSlice";
 
 
-export default function UpdateProduct() {
+export default function SellerProductUpdate() {
 
-    const { id } = useParams()
+    const {id} = useParams()
     const [title, setTitle] = useState();
     const [description, setDescription] = useState();
     const [imageUrl, setImageUrl] = useState();
@@ -18,6 +18,32 @@ export default function UpdateProduct() {
     const [bidDueDate, setBidDueDate] = useState();
     const [bidDueTime, setBidDueTime] = useState();
     const [payDate, setPayDate] = useState();
+
+
+    function getProductById(id) {
+        const auction = {
+            startPrice: 10,
+            depositAmount: 10,
+            highestBid: 10,
+            bidDueDateTime: "2023-10-10 00:10:20",
+            payDate: "2023-10-10",
+            bids: [],
+            winner: null
+
+        }
+
+        const productObj = {
+            id,
+            title: "test",
+            description: "test",
+            released: true,
+            categories: [{name: "test"}, {name: "test1"}],
+            seller: null,
+            auction
+        }
+
+        return productObj;
+    }
 
     function handleUpdate(e) {
         e.preventDefault();
@@ -72,11 +98,13 @@ export default function UpdateProduct() {
                 <div className="container mt-4">
                     <div className="mb-3">
                         <label htmlFor="exampleFormControlInput1" className="form-label">Title</label>
-                        <input value={title} name="title" type="text" className="form-control" id="exampleFormControlInput1" onChange={(e) => setTitle(e.target.value)} />
+                        <input value={title} name="title" type="text" className="form-control"
+                               id="exampleFormControlInput1" onChange={(e) => setTitle(e.target.value)}/>
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="category-names" className="form-label">Category</label><br />
-                        <select name="categories" id="category-names" className="form-control" onChange={(e) => setCategories(e.target.value)}>
+                        <label htmlFor="category-names" className="form-label">Category</label><br/>
+                        <select name="categories" id="category-names" className="form-control"
+                                onChange={(e) => setCategories(e.target.value)}>
                             {categories?.map((item, index) => (
                                 <option key={index} value={item.name}>{item.name}</option>
                             ))}
@@ -88,7 +116,9 @@ export default function UpdateProduct() {
                     </div>
                     <div className="mb-3">
                         <label htmlFor="exampleFormControlTextarea1" className="form-label">Description</label>
-                        <textarea value={description} name="description" className="form-control" id="exampleFormControlTextarea1" rows="3" onChange={(e) => setDescription(e.target.value)}></textarea>
+                        <textarea value={description} name="description" className="form-control"
+                                  id="exampleFormControlTextarea1" rows="3"
+                                  onChange={(e) => setDescription(e.target.value)}></textarea>
                     </div>
                 </div>
                 <div className="container border-bottom mt-5">
@@ -97,27 +127,33 @@ export default function UpdateProduct() {
                 <div className="container mt-4">
                     <div className="mb-3">
                         <label htmlFor="exampleFormControlInput1" className="form-label">Start price</label>
-                        <input value={startPrice} name="startPrice" type="number" className="form-control" id="exampleFormControlInput1" onChange={(e) => setStartPrice(e.target.value)} />
+                        <input value={startPrice} name="startPrice" type="number" className="form-control"
+                               id="exampleFormControlInput1" onChange={(e) => setStartPrice(e.target.value)}/>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="exampleFormControlInput1" className="form-label">Highest bid price</label>
-                        <input value={highestBid} name="highestBid" type="number" className="form-control" id="exampleFormControlInput1" onChange={(e) => setHighestBid(e.target.value)} />
+                        <input value={highestBid} name="highestBid" type="number" className="form-control"
+                               id="exampleFormControlInput1" onChange={(e) => setHighestBid(e.target.value)}/>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="exampleFormControlInput1" className="form-label">Deposite amount</label>
-                        <input value={depositAmount} name="depositAmount" type="number" className="form-control" id="exampleFormControlInput1" onChange={(e) => setDepositAmount(e.target.value)} />
+                        <input value={depositAmount} name="depositAmount" type="number" className="form-control"
+                               id="exampleFormControlInput1" onChange={(e) => setDepositAmount(e.target.value)}/>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="exampleFormControlInput1" className="form-label">Bid due date</label>
-                        <input value={bidDueDate} name="bidDueDate" type="date" className="form-control" id="exampleFormControlInput1" onChange={(e) => setBidDueDate(e.target.value)} />
+                        <input value={bidDueDate} name="bidDueDate" type="date" className="form-control"
+                               id="exampleFormControlInput1" onChange={(e) => setBidDueDate(e.target.value)}/>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="exampleFormControlInput1" className="form-label">Bid due time</label>
-                        <input value={bidDueTime} name="bidDueTime" type="time" className="form-control" id="exampleFormControlInput1" onChange={(e) => setBidDueTime(e.target.value)} />
+                        <input value={bidDueTime} name="bidDueTime" type="time" className="form-control"
+                               id="exampleFormControlInput1" onChange={(e) => setBidDueTime(e.target.value)}/>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="exampleFormControlInput1" className="form-label">Payment due date</label>
-                        <input value={payDate} name="payDate" type="date" className="form-control" id="exampleFormControlInput1" onChange={(e) => setPayDate(e.target.value)} />
+                        <input value={payDate} name="payDate" type="date" className="form-control"
+                               id="exampleFormControlInput1" onChange={(e) => setPayDate(e.target.value)}/>
                     </div>
                     <div className="mb-3 text-end mt-4">
                         <button type="submit" className="btn btn-warning">Save</button> &nbsp;

@@ -22,6 +22,12 @@ const customerSlice = createSlice(
                     state = {...state, status, statusText, auctions: [...state.auctions, data]};
                     return state;
                 })
+                .addCase(fetchCustomerAuctions.fulfilled, (state, action) => {
+                    console.log("fetchCustomerAuctions reducer:", action.payload);
+                    const {data, status, statusText} = action.payload;
+                    state = {...state, status, statusText, auctions: [...state.auctions, data]};
+                    return state;
+                })
                 .addDefaultCase((state, action) => state)
         }
     }
@@ -32,7 +38,17 @@ export const addBid = createAsyncThunk(
     async ({auctionId, bidData}) => {
         const response = await customerService.addBid({auctionId, data: bidData});
         console.log("addBid http===>", response);
-        const {data, status, statusText} = response;
+        const {data, status, statusText} = response.data;
+        return {data, status, statusText};
+    }
+);
+
+export const fetchCustomerAuctions = createAsyncThunk(
+    CUSTOMER_SLICE.GET_ALL,
+    async () => {
+        const response = await customerService.getAll();
+        console.log("fetchCustomerAuctions http ===>", response);
+        const {data, status, statusText} = response.data;
         return {data, status, statusText};
     }
 );

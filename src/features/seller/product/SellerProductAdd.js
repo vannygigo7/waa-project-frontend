@@ -1,9 +1,9 @@
-import { useState } from "react"; 
-import { addProduct } from "../../../features/seller/product/SellerProductSlice";
+import {useState} from "react";
+import {addProduct} from "./SellerProductSlice";
 import store from "../../../redux/store";
 
 
-export default function AddProduct() {
+export default function SellerProductAdd() {
 
     const [isRelease, setIsRelease] = useState(false);
 
@@ -35,9 +35,9 @@ export default function AddProduct() {
 
         console.log("Product: ", product);
 
-        store.dispatch(addProduct({product})).then((res)=>{
+        store.dispatch(addProduct({product})).then((res) => {
             console.log("addProduct:", res);
-        }).catch((e)=>{
+        }).catch((e) => {
             console.log("error addProduct:", e);
         });
     }
@@ -67,10 +67,11 @@ export default function AddProduct() {
                 <div className="container mt-4">
                     <div className="mb-3">
                         <label htmlFor="exampleFormControlInput1" className="form-label">Title</label>
-                        <input name="title" type="text" className="form-control" id="exampleFormControlInput1" placeholder="" />
+                        <input name="title" type="text" className="form-control" id="exampleFormControlInput1"
+                               placeholder=""/>
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="category-names" className="form-label">Category</label><br />
+                        <label htmlFor="category-names" className="form-label">Category</label><br/>
                         <select name="categories" id="category-names" className="form-control">
                             <option value="a">A</option>
                             <option value="b">B</option>
@@ -79,11 +80,13 @@ export default function AddProduct() {
                     </div>
                     <div className="mb-3">
                         <label htmlFor="exampleFormControlInput1" className="form-label">Image url</label>
-                        <input name="imageUrl" type="text" className="form-control" id="exampleFormControlInput1" placeholder="" />
+                        <input name="imageUrl" type="text" className="form-control" id="exampleFormControlInput1"
+                               placeholder=""/>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="exampleFormControlTextarea1" className="form-label">Description</label>
-                        <textarea name="description" className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        <textarea name="description" className="form-control" id="exampleFormControlTextarea1"
+                                  rows="3"></textarea>
                     </div>
                 </div>
                 <div className="container border-bottom mt-5">
@@ -92,7 +95,8 @@ export default function AddProduct() {
                 <div className="container mt-4">
                     <div className="mb-3">
                         <label htmlFor="exampleFormControlInput1" className="form-label">Start price</label>
-                        <input name="startPrice" type="number" className="form-control" id="exampleFormControlInput1" placeholder="" />
+                        <input name="startPrice" type="number" className="form-control" id="exampleFormControlInput1"
+                               placeholder=""/>
                     </div>
                     {/* <div className="mb-3">
                         <label htmlFor="exampleFormControlInput1" className="form-label">Highest bid price</label>
@@ -100,23 +104,30 @@ export default function AddProduct() {
                     </div> */}
                     <div className="mb-3">
                         <label htmlFor="exampleFormControlInput1" className="form-label">Deposite amount</label>
-                        <input name="depositAmount" type="number" className="form-control" id="exampleFormControlInput1" placeholder="" />
+                        <input name="depositAmount" type="number" className="form-control" id="exampleFormControlInput1"
+                               placeholder=""/>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="exampleFormControlInput1" className="form-label">Bid due date</label>
-                        <input name="bidDueDate" type="date" className="form-control" id="exampleFormControlInput1" placeholder="" />
+                        <input name="bidDueDate" type="date" className="form-control" id="exampleFormControlInput1"
+                               placeholder=""/>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="exampleFormControlInput1" className="form-label">Bid due time</label>
-                        <input name="bidDueTime" type="time" className="form-control" id="exampleFormControlInput1" placeholder="" />
+                        <input name="bidDueTime" type="time" className="form-control" id="exampleFormControlInput1"
+                               placeholder=""/>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="exampleFormControlInput1" className="form-label">Payment due date</label>
-                        <input name="payDate" type="date" className="form-control" id="exampleFormControlInput1" placeholder="" />
+                        <input name="payDate" type="date" className="form-control" id="exampleFormControlInput1"
+                               placeholder=""/>
                     </div>
                     <div className="mb-3 text-end mt-4">
-                        <button type="submit" onClick={() => setIsRelease(false)} className="btn btn-warning">Draft</button> &nbsp;
-                        <button type="submit" onClick={() => setIsRelease(true)} className="btn btn-success">Release</button>
+                        <button type="submit" onClick={() => setIsRelease(false)} className="btn btn-warning">Draft
+                        </button>
+                        &nbsp;
+                        <button type="submit" onClick={() => setIsRelease(true)} className="btn btn-success">Release
+                        </button>
                     </div>
                 </div>
             </form>

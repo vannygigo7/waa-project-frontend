@@ -6,9 +6,11 @@ import {getLocalDateTime, showToast} from "../../../utils/utilFunctions";
 import {ToastContainer} from "react-toastify";
 import {addBid} from "../../../features/customer/CustomerSlice";
 
-export default function ProductDetail() {
+export default function AuctionDetail() {
     const {id} = useParams();
     const [product, setProduct] = useState(null);
+    // const {auctions} = store.getState().customerAuctions.auctions;
+    // let product = auctions && auctions.map(auc => auc.id === (id * 1));
     const bidAmountInput = useRef();
     const [timeLeft, setTimeLeft] = useState({
         days: 0,
@@ -16,10 +18,12 @@ export default function ProductDetail() {
         minutes: 0,
         seconds: 0
     });
-    console.log("ProductDetail 1:", id);
+    console.log("AuctionDetail:", store.getState().customerAuctions);
+    console.log("AuctionDetail 1:", id);
 
     useEffect(() => {
         store.dispatch(fetchHomeProductById({id})).then(value => {
+            console.log("fetchHomeProductById: ", value.payload.data);
             setProduct(value.payload.data);
         });
     }, []);
@@ -55,13 +59,14 @@ export default function ProductDetail() {
             return;
         }
         console.log(`ok bid: ${bidAmountInput.current.value}`);
-        const bidData = {"bidAmount1": bidAmount};
+        const bidData = {"bidAmount": bidAmount};
         store.dispatch(addBid({auctionId: id, bidData}))
             .then((value) => {
-                // console.log("then:", store.getState().customerAuctions);
-                console.log("then:", value);
-                // const {status, statusText} = value.payload;
-                // showToast(status, statusText);
+                console.log("then state:", store.getState().customerAuctions);
+                console.log("then value:", value.payload);
+                const {statusCode, message} = value.payload.data;
+                setProduct(value.payload.data);
+                showToast(statusCode, message);
             })
             .catch((e) => {
                 console.log("catch:", e);
@@ -114,7 +119,7 @@ export default function ProductDetail() {
                 <div className="images ">
                     <div className="text-center p-4">
                         <img className="rounded"
-                             src="https://images.unsplash.com/photo-1677414129280-2a0545a774f2?auto=format&fit=crop&q=80&w=2940&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                             src={product.imageUrl}
                              width="100%" alt=""/>
                     </div>
                 </div>
@@ -151,6 +156,7 @@ export default function ProductDetail() {
     }
 
     const getNumberOfBidders = (bidders) => {
+        if (!bidders) return '0 person';
         return bidders > 1 ? `${bidders} people` : `${bidders} person`;
     }
 

@@ -4,6 +4,7 @@ import {useEffect} from "react";
 import store from "../../../redux/store";
 import {fetchProducts} from "./SellerProductSlice";
 import SellerProductTile from "./SellerProductTile";
+import {ROUTE} from "../../../constant/route";
 
 export default function SellerProductList() {
     const navigate = useNavigate();
@@ -19,7 +20,7 @@ export default function SellerProductList() {
     }, []);
 
     const goNewProduct = () => {
-        navigate('/products/add-new');
+        navigate(ROUTE.SELLER_PRODUCT_ADD);
     }
 
     return (
