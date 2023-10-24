@@ -16,10 +16,14 @@ export default function LandingPage() {
 
     const navigate = useNavigate();
     const isLogin = localStorage.getItem("isLogin");
+    const user = JSON.parse(localStorage.getItem("user"));
 
     useEffect(() => {
-        if (isLogin === "true") {
+        if (isLogin !== undefined && isLogin === "true" && user?.role === "USER") {
             navigate(ROUTE.HOME)
+        }
+        if (isLogin !== undefined && isLogin === "true" && user?.role === "SELLER") {
+            navigate(ROUTE.SELLER_HOME)
         }
     }, [])
 
