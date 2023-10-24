@@ -1,4 +1,6 @@
 import { useState } from "react"; 
+import { addProduct } from "../../../features/seller/product/SellerProductSlice";
+import store from "../../../redux/store";
 
 
 export default function AddProduct() {
@@ -11,54 +13,50 @@ export default function AddProduct() {
         const title = form.get("title");
         const description = form.get("description");
         const categories = form.get("categories");
+        const imageUrl = form.get("imageUrl");
 
         const startPrice = form.get("startPrice");
         const depositAmount = form.get("depositAmount");
-        const highestBid = form.get("highestBid");
+        const payDate = form.get("payDate");
         const bidDueDate = form.get("bidDueDate");
         const bidDueTime = form.get("bidDueTime");
 
-        const seller = {
-            //put seller object here
-        }
-
-        const auction = {
-            startPrice,
-            depositAmount,
-            highestBid,
-            bidDueDateTime: bidDueDate + " " + bidDueTime,
-            bids: [],
-            winner: null
-
-        }
-
-        const productObj = {
+        const product = {
             title,
             description,
-            released: isRelease,
+            imageUrl,
             categories: [{name: categories}],
-            seller,
-            auction
+            released: isRelease,
+            startPrice,
+            depositAmount,
+            bidDueDateTime: bidDueDate + "T" + bidDueTime,
+            payDate
         }
 
-        console.log("Product: ", productObj);
+        console.log("Product: ", product);
 
-        if(isRelease){
-            onRelease();
-        }else{
-            onDraft();
-        }
+        store.dispatch(addProduct({product})).then((res)=>{
+            console.log("addProduct:", res);
+        }).catch((e)=>{
+            console.log("error addProduct:", e);
+        });
     }
 
-    function onRelease(){
-        console.log("onRelease called");
-        // Further implementation here
-    }
+    // function onRelease(product){
+    //     store.dispatch(addProduct({product})).then((res)=>{
+    //         console.log("addProduct:", res);
+    //     }).catch((e)=>{
+    //         console.log("error addProduct:", e);
+    //     });
+    // }
 
-    function onDraft(){
-        console.log("onDraft called");
-        // Further implementation here
-    }
+    // function onDraft(product){
+    //     store.dispatch(addProduct({product})).then((res)=>{
+    //         console.log("addProduct:", res);
+    //     }).catch((e)=>{
+    //         console.log("error addProduct:", e);
+    //     });
+    // }
 
     return (
         <div className="border border-1 p-5 m-5 rounded-3">
@@ -96,10 +94,10 @@ export default function AddProduct() {
                         <label htmlFor="exampleFormControlInput1" className="form-label">Start price</label>
                         <input name="startPrice" type="number" className="form-control" id="exampleFormControlInput1" placeholder="" />
                     </div>
-                    <div className="mb-3">
+                    {/* <div className="mb-3">
                         <label htmlFor="exampleFormControlInput1" className="form-label">Highest bid price</label>
                         <input name="highestBid" type="number" className="form-control" id="exampleFormControlInput1" placeholder="" />
-                    </div>
+                    </div> */}
                     <div className="mb-3">
                         <label htmlFor="exampleFormControlInput1" className="form-label">Deposite amount</label>
                         <input name="depositAmount" type="number" className="form-control" id="exampleFormControlInput1" placeholder="" />

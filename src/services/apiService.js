@@ -1,3 +1,4 @@
+import { header } from "../config/header";
 import http from "../config/http";
 
 export default function apiService(endpoint) {
@@ -11,7 +12,7 @@ export default function apiService(endpoint) {
     }
 
     this.add = (data) => {
-        return http.post(endpoint, data);
+        return http.post(endpoint, data, {headers: header()});
     }
 
     this.update = (id, data) => {

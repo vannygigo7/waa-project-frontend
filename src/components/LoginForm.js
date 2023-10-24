@@ -21,10 +21,17 @@ export default function LoginForm() {
             .then(res => {
                 if (res.data.message === "SUCCESS"){
                     localStorage.setItem("isLogin", true)
-                    navigate(ROUTE.HOME)
+                    const user = res.data.data;
+                    localStorage.setItem("user", JSON.stringify(user))
+                    if (res.data.data.role === "USER") {
+                        navigate(ROUTE.HOME)
+                    }
+                    if (res.data.data.role === "SELLER") {
+                        navigate(ROUTE.SELLER_HOME)
+                    }
                 }
             }).catch((e)=>{
-                showToast(e.response.status, e.message);
+                showToast(e?.response?.status, e.message);
             })
     }
 
