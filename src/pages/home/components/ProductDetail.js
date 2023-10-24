@@ -1,54 +1,19 @@
+import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
+import store from "../../../redux/store";
+import {fetchHomeProductById} from "../HomeSlice";
 import {getLocalDateTime} from "../../../utils/utilFunctions";
 
-export default function SellerProductDetailReleasedRunning({product}) {
-    const [timeLeft, setTimeLeft] = useState({
-        days: 0,
-        hours: 0,
-        minutes: 0,
-        seconds: 0
-    });
+export default function ProductDetail() {
+    const {id} = useParams();
+    const [product, setProduct] = useState(null);
+    console.log("ProductDetail 1:", id);
 
     useEffect(() => {
-        const targetDate = new Date(product.auction.bidDueDateTime); // Example target date and time
-
-        const interval = setInterval(() => {
-
-            const now = new Date();
-            const difference = targetDate - now;
-
-            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-            setTimeLeft({days, hours, minutes, seconds});
-            console.log(seconds);
-            if (difference < 0) {
-                clearInterval(interval);
-                setTimeLeft({days: 0, hours: 0, minutes: 0, seconds: 0});
-            }
-        }, 1000);
-
-        return () => clearInterval(interval);
+        store.dispatch(fetchHomeProductById({id})).then(value => {
+            setProduct(value.payload.data);
+        });
     }, []);
-
-    const getTimer = (time) => {
-        let res = '';
-        if (time.days > 0)
-            res += time.days + 'days, ';
-        if (time.hours > 0)
-            res += time.hours + ':';
-        if (time.minutes > 0)
-            res += time.minutes + ':';
-        if (time.seconds > 0)
-            res += time.seconds;
-
-        return (
-            <h4>{res}</h4>
-        );
-    }
-
 
     const getRunningAuction = () => {
         return (
@@ -59,8 +24,8 @@ export default function SellerProductDetailReleasedRunning({product}) {
                         <small className="dis-price">Current bid <h3>$ ???</h3></small>
                     </div>
                     <div className="my-3">
-                        {/*<h4>10:20:30</h4>*/}
-                        {getTimer(timeLeft)}
+                        <h4>10:20:30</h4>
+                        {/*{getTimer(timeLeft)}*/}
                         {/*<p>{timeLeft.days} days, {timeLeft.hours} hours, {timeLeft.minutes} minutes, {timeLeft.seconds} seconds</p>*/}
                     </div>
                     <div className="align-self-end mt-2"><i className="bi bi-calendar"> </i>
@@ -72,9 +37,18 @@ export default function SellerProductDetailReleasedRunning({product}) {
                     <div className="align-self-end mt-2">
                         <i className="bi bi-calendar"> </i>Payment due: {product.auction.payDate}
                     </div>
-                    <button className="btn btn-danger mr-2 mt-3 px-4" onClick={() => {
-                    }}> End Auction
-                    </button>
+                    {/*<button className="btn btn-danger mr-2 mt-3 px-4" onClick={() => {*/}
+                    {/*}}> End Auction*/}
+                    {/*</button>*/}
+                    <div className="cart mt-4 align-items-center">
+                        <label className="mb-2">
+                            Please increase your bid at least <b>$1</b>
+                        </label>
+                        <input type="text" className="form-control" placeholder="Enter amount"/>
+                        <button className="btn btn-primary mr-2 mt-3 px-4" onClick={() => {
+                        }}> Place Bid
+                        </button>
+                    </div>
                 </div>
 
             </div>
@@ -92,7 +66,6 @@ export default function SellerProductDetailReleasedRunning({product}) {
                     </div>
                 </div>
                 <div className="ms-4">
-
                     <div className="mb-2">
                         <h5>{product.title}</h5>
                         <div className="mb-2">
@@ -112,12 +85,10 @@ export default function SellerProductDetailReleasedRunning({product}) {
                                 <small className="dis-price"><i
                                     className="bi bi-info-circle text-dark"></i> {product.description}
                                 </small>
-
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         );
     }
@@ -161,8 +132,8 @@ export default function SellerProductDetailReleasedRunning({product}) {
         );
     }
 
-    return (
-        <div>
+    const getBody = () => {
+        return (<div>
             <div className="container mt-5 mb-5">
                 <div className="row d-flex justify-content-center">
                     <div className="col-md-8">
@@ -183,6 +154,12 @@ export default function SellerProductDetailReleasedRunning({product}) {
                     </div>
                 </div>
             </div>
-        </div>
+        </div>);
+    }
+
+    return (
+        <>
+            {product && getBody()}
+        </>
     );
 }

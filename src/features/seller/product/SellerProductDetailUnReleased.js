@@ -5,19 +5,17 @@ export default function SellerProductDetailUnReleased({product}) {
             <div className="me-3">
                 <div className="mt-4 mb-3">
                     <h3 className="text-secondary">Unreleased</h3>
-                    <div className="price d-flex flex-row align-items-center">
-                        <div className="ml-2">
-                            <small className="dis-price">Starting price <h3>${product.auction.startPrice}</h3></small>
-                        </div>
+                    <div className="my-2">
+                        <small className="dis-price">Starting price <h3>${product.auction.startPrice}</h3></small>
+                    </div>
+                    <div className="align-self-end mt-2"><i className="bi bi-calendar"> </i>
+                        Bidding due: {product.auction.bidDueDateTime}
                     </div>
                     <div className="align-self-end mt-2">
                         <i className="bi bi-cash"> </i> Deposit amount: <b>${product.auction.depositAmount}</b>
                     </div>
                     <div className="align-self-end mt-2">
                         <i className="bi bi-calendar"> </i>Payment due: {product.auction.payDate}
-                    </div>
-                    <div className="align-self-end mt-2"><i className="bi bi-calendar"> </i>
-                        Bidding due: {product.auction.bidDueDateTime}
                     </div>
                     <button className="btn btn-primary mr-2 mt-3 px-4" onClick={() => {
                     }}> Start Auction
@@ -46,15 +44,23 @@ export default function SellerProductDetailUnReleased({product}) {
                                 className="bi bi-tag"> </i>{c.name}</small>)}
                         </div>
                         <div className="d-flex flex-row align-items-center">
-                            <div className="ml-2">
+                            <div className="mb-2">
                                 <small className="dis-price"><i
                                     className="bi bi-geo text-dark"></i> started at
                                 </small>
                                 <b> ${product.auction.startPrice}</b>
                             </div>
                         </div>
+                        <div className="d-flex flex-row align-items-center">
+                            <div className="ml-2">
+                                <small className="dis-price"><i
+                                    className="bi bi-info-circle text-dark"></i> {product.description}
+                                </small>
+
+                            </div>
+                        </div>
                     </div>
-                    <p className="about">{product.description}</p>
+
                 </div>
             </div>
         );

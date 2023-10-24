@@ -4,16 +4,14 @@ export default function SellerProductDetailReleasedEnded({product}) {
             <div className="me-3">
                 <div className="mt-4 mb-3">
                     <h3 className="text-secondary">Ended</h3>
-                    <div className="price d-flex flex-row align-items-center">
-                        <div className="ml-2">
-                            <small className="dis-price">Highest bid <h3>$60</h3></small>
-                        </div>
+                    <div className="ml-2">
+                        <small className="dis-price">Highest bid <h3>$60</h3></small>
+                    </div>
+                    <div className="align-self-end mt-2">
+                        <i className="bi bi-calendar-check"> </i>Bidding due: October 10, 2023 at 10:30 pm
                     </div>
                     <div className="align-self-end mt-2">
                         <i className="bi bi-cash"> </i> Deposit amount <b>$6</b>
-                    </div>
-                    <div className="align-self-end mt-2">
-                        <i className="bi bi-calendar-check"> </i>Ended: October 10, 2023 at 10:30 pm
                     </div>
                     <div className="align-self-end mt-2">
                         <i className="bi bi-calendar"> </i>Payment due: October 10, 2023 at 10:30 pm

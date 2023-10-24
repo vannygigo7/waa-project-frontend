@@ -7,8 +7,8 @@ import {ToastContainer} from "react-toastify";
 
 export default function ProductList() {
     const navigate = useNavigate();
-    const {products} = store.getState().products;
-    console.log("ProductList===>", products);
+    const {products} = store.getState().testProducts;
+    console.log("Test ProductList===>", products);
 
     useEffect(() => {
         store.dispatch(fetchProductsTest())

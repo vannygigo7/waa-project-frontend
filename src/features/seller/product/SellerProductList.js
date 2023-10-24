@@ -1,17 +1,17 @@
 import {ToastContainer} from "react-toastify";
-import SellerProductTile from "./SellerProductTile";
 import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
 import store from "../../../redux/store";
 import {fetchProducts} from "./SellerProductSlice";
+import SellerProductTile from "./SellerProductTile";
 
 export default function SellerProductList() {
     const navigate = useNavigate();
-    const {products} = store.getState().products;
-    console.log("ProductList===>", products);
+    const {products} = store.getState().sellerProducts;
+    console.log("Seller ProductList===>", products);
 
     useEffect(() => {
-        store.dispatch(fetchProducts({release: true}))
+        store.dispatch(fetchProducts())
             .then(() => {
             })
             .catch(() => {
