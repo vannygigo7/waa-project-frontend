@@ -4,11 +4,11 @@ import http from "../config/http";
 export default function apiService(endpoint) {
 
     this.getAll = () => {
-        return http.get(endpoint);
+        return http.get(endpoint, {headers: header()});
     }
 
     this.getById = (id) => {
-        return http.get(`${endpoint}/${id}`);
+        return http.get(`${endpoint}/${id}`,{headers: header()});
     }
 
     this.add = (data) => {
@@ -16,10 +16,10 @@ export default function apiService(endpoint) {
     }
 
     this.update = (id, data) => {
-        return http.put(`${endpoint}/${id}`, data);
+        return http.put(`${endpoint}/${id}`, data, {headers: header()});
     }
 
     this.remove = (id) => {
-        return http.delete(`${endpoint}/${id}`);
+        return http.delete(`${endpoint}/${id}`, {headers: header()});
     }
 }
