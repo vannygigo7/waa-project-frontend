@@ -1,11 +1,11 @@
 import {useNavigate} from "react-router-dom";
-import ProductItem from "./ProductItem";
+import TestProductTile from "./TestProductTile";
 import {useEffect} from "react";
-import {fetchProducts, fetchProductsTest} from "./ProductSlice";
+import {fetchProductsTest} from "./TestProductSlice";
 import store from "../../redux/store";
 import {ToastContainer} from "react-toastify";
 
-export default function ProductList() {
+export default function TestProductList() {
     const navigate = useNavigate();
     const {products} = store.getState().testProducts;
     console.log("Test ProductList===>", products);
@@ -19,7 +19,7 @@ export default function ProductList() {
     }, []);
 
     const newProduct = () => {
-        navigate('/products/add');
+        navigate('/test/products/add');
     }
 
     return (
@@ -42,7 +42,7 @@ export default function ProductList() {
                 </thead>
                 <tbody>
                 {products.map((product, index) =>
-                    <ProductItem key={product.id} {...{index, product}} />
+                    <TestProductTile key={product.id} {...{index, product}} />
                 )}
                 </tbody>
             </table>

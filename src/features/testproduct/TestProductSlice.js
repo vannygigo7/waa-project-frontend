@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import productService from "../../services/sellerProductService";
 import {TEST_PRODUCT_SLICE} from "../../constant/testProduct";
+import testProductService from "../../services/testProductService";
 
 const initialState = {
     products: [],
@@ -62,7 +62,7 @@ const testProductSlice = createSlice({
 export const fetchProductsTest = createAsyncThunk(
     TEST_PRODUCT_SLICE.GET_ALL,
     async () => {
-        const response = await productService.getAll();
+        const response = await testProductService.getAll();
         console.log("test fetchProducts http===>", response);
         const {data, status, statusText} = response;
         return {data, status, statusText};
@@ -72,7 +72,7 @@ export const fetchProductsTest = createAsyncThunk(
 export const fetchProductByIdTest = createAsyncThunk(
     TEST_PRODUCT_SLICE.GET_BY_ID,
     async ({id}) => {
-        const response = await productService.getById(id);
+        const response = await testProductService.getById(id);
         console.log("fetchProductById===>", response);
         const {data, status, statusText} = response;
         return {data, status, statusText};
@@ -82,7 +82,7 @@ export const fetchProductByIdTest = createAsyncThunk(
 export const addProductTest = createAsyncThunk(
     TEST_PRODUCT_SLICE.ADD,
     async ({product}) => {
-        const response = await productService.add(product);
+        const response = await testProductService.add(product);
         console.log("addProduct===>", response);
         const {data, status, statusText} = response;
         return {data, status, statusText};
@@ -92,7 +92,7 @@ export const addProductTest = createAsyncThunk(
 export const updateProductTest = createAsyncThunk(
     TEST_PRODUCT_SLICE.UPDATE,
     async ({id, product}) => {
-        const response = await productService.update(id, product);
+        const response = await testProductService.update(id, product);
         console.log("updateProduct===>", response);
         const {data, status, statusText} = response;
         return {data, status, statusText};
@@ -102,7 +102,7 @@ export const updateProductTest = createAsyncThunk(
 export const deleteProductTest = createAsyncThunk(
     TEST_PRODUCT_SLICE.DELETE,
     async ({id}) => {
-        const response = await productService.remove(id);
+        const response = await testProductService.remove(id);
         console.log("deleteProduct===>", response);
         const {data, status, statusText} = response;
         return {data, status, statusText, id};

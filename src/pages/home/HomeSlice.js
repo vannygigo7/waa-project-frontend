@@ -1,8 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {HOME_SLICE} from "../../constant/home";
 import homeService from "../../services/homeService";
-import {PRODUCT_SLICE} from "../../constant/product";
-import SellerProductService from "../../services/sellerProductService";
 
 const initialState = {
     products: [],
@@ -19,6 +17,12 @@ const homeProductSlice = createSlice({
         builder
             .addCase(fetchHomeProducts.fulfilled, (state, action) => {
                 console.log("fetchHomeProducts reducer:", action.payload);
+                const {data, status, statusText} = action.payload;
+                state = {...state, status, statusText, products: data};
+                return state;
+            })
+            .addCase(searchHomeProducts.fulfilled, (state, action) => {
+                console.log("searchHomeProducts reducer:", action.payload);
                 const {data, status, statusText} = action.payload;
                 state = {...state, status, statusText, products: data};
                 return state;
@@ -43,11 +47,20 @@ export const fetchHomeProducts = createAsyncThunk(
     }
 );
 
+export const searchHomeProducts = createAsyncThunk(
+    HOME_SLICE.SEARCH_BY,
+    async (params) => {
+        const response = await homeService.searchHomeProducts(params);
+        const {data, status, statusText} = response.data;
+        return {data, status, statusText};
+    }
+);
+
 export const fetchHomeProductById = createAsyncThunk(
     HOME_SLICE.GET_BY_ID,
     async ({id}) => {
         const response = await homeService.getById(id);
-        console.log("fetchHomeProducts http===>", response);
+        console.log("fetchHomeProductById http===>", response);
         const {data, status, statusText} = response.data;
         return {data, status, statusText};
     }
