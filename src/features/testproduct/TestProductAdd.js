@@ -1,10 +1,10 @@
 import {useNavigate} from "react-router-dom";
 import store from "../../redux/store";
-import {addProductTest, fetchProductsTest} from "./ProductSlice";
+import {addProductTest} from "./TestProductSlice";
 import {ToastContainer} from "react-toastify";
 import {showToast} from "../../utils/utilFunctions";
 
-export default function ProductAdd() {
+export default function TestProductAdd() {
     const navigate = useNavigate();
     const product = {};
 
@@ -14,18 +14,19 @@ export default function ProductAdd() {
     }
 
     const goHome = () => {
-        navigate('/');
+        navigate('/test/products');
     }
 
     function saveProduct() {
         store.dispatch(addProductTest({product}))
             .then((value) => {
-                console.log(store.getState().products);
+                console.log("then: ", value)
+                console.log(store.getState().testProducts);
                 const {status, statusText} = value.payload;
                 showToast(status, statusText);
             })
             .catch(() => {
-
+                console.log("e:", store.getState().testProducts);
             });
     }
 

@@ -1,7 +1,7 @@
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import store from "../../redux/store";
-import {fetchHomeProductById} from "../../pages/home/HomeSlice";
+import store from "../../../redux/store";
+import {fetchHomeProductById} from "../../../pages/home/HomeSlice";
 
 export default function AuctionDetail() {
     const {id} = useParams();

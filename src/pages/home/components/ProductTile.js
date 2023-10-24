@@ -18,7 +18,7 @@ export default function ProductTile(props) {
                         <div className="images p-2">
                             <div className="text-center">
                                 <img className="rounded"
-                                     src="https://jennifermaker.com/wp-content/uploads/gift-box-templates-cricut-f-735x735.jpg"
+                                     src={product.imageUrl}
                                      width="200px" height="200px" alt=""/>
                             </div>
                         </div>
@@ -34,7 +34,7 @@ export default function ProductTile(props) {
 
                                 <div className="mt-3">
                                     <div className="me-2">
-                                        <h4>$ ???</h4>
+                                        <h4>$ {product.auction.highestBid}</h4>
                                     </div>
                                 </div>
                             </div>

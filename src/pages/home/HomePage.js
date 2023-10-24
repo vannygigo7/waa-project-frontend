@@ -1,14 +1,14 @@
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import store from "../../redux/store";
 
 import ProductTile from "./components/ProductTile";
-import {fetchHomeProducts} from "./HomeSlice";
+import {fetchHomeProducts, searchHomeProducts} from "./HomeSlice";
 
 export default function HomePage() {
-
+    const searchTextInput = useRef();
     const [products, setProducts] = useState(null);
     // let {products} = store.getState();
-    console.log("HomePage: ", products);
+    console.log("HomePage: ", store.getState().homeProducts);
 
     useEffect(() => {
         store.dispatch(fetchHomeProducts())
@@ -21,6 +21,22 @@ export default function HomePage() {
             });
     }, []);
 
+    const searchHandler = () => {
+        const searchValue = searchTextInput.current.value;
+        if (!searchValue) {
+            return;
+        }
+
+        store.dispatch(searchHomeProducts({name: searchValue}))
+            .then((value) => {
+                console.log("searchHomeProducts 1:", value);
+                setProducts(value.payload.data);
+                console.log("searchHomeProducts 2:", products);
+            })
+            .catch(() => {
+            });
+    }
+
     return (
         <div className="container mt-5 mb-5">
             <div className="row d-flex justify-content-center">
@@ -28,9 +44,12 @@ export default function HomePage() {
                     <h2>Creative Name</h2>
                     <div className="my-4">
                         <div className="d-flex justify-content-between">
-                            < input className="form-control" id="myInput" type="text" placeholder="Search products..."/>
+                            <input ref={searchTextInput} className="form-control" id="myInput" type="text"
+                                   placeholder="Search products..."/>
                             <div className="ms-1 align-self-end">
-                                <button className="btn btn-outline-secondary" type="button">Search</button>
+                                <button onClick={searchHandler} className="btn btn-outline-secondary"
+                                        type="button">Search
+                                </button>
                             </div>
                         </div>
                     </div>
