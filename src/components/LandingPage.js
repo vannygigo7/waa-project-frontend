@@ -8,9 +8,21 @@ import todoIcon from "../assets/images/to-do-list.webp";
 import smartphoneIcon from "../assets/images/smartphone.png";
 import gearIcon from "../assets/images/gear.png";
 import Footer from "./Footer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { ROUTE } from "../constant/route";
+import { useEffect } from "react";
 
 export default function LandingPage() {
+
+    const navigate = useNavigate();
+    const isLogin = localStorage.getItem("isLogin");
+
+    useEffect(() => {
+        if (isLogin === "true") {
+            navigate(ROUTE.HOME)
+        }
+    }, [])
+
     return (
         <div>
             <NavBar />
@@ -71,7 +83,7 @@ export default function LandingPage() {
             <div className="container text-center mt-4">
                 <div className="row row-cols-1 row-cols-md-2 g-4 ">
                     <div className="col">
-                        <div className="card m-auto border-white" style={{width: "25rem"}}>
+                        <div className="card m-auto border-white" style={{ width: "25rem" }}>
                             <img src={todoIcon} className="card-img-size" alt="..." />
                             <div className="card-body">
                                 <h5 className="card-title">Item Management</h5>
@@ -80,7 +92,7 @@ export default function LandingPage() {
                         </div>
                     </div>
                     <div className="col">
-                        <div className="card m-auto border-white" style={{width: "25rem"}}>
+                        <div className="card m-auto border-white" style={{ width: "25rem" }}>
                             <img src={gearIcon} className="card-img-size" alt="..." />
                             <div className="card-body">
                                 <h5 className="card-title">Auto-Bidding</h5>
@@ -89,7 +101,7 @@ export default function LandingPage() {
                         </div>
                     </div>
                     <div className="col">
-                        <div className="card m-auto border-white" style={{width: "25rem"}}>
+                        <div className="card m-auto border-white" style={{ width: "25rem" }}>
                             <img src={bidIcon} className="card-img-size" alt="..." />
                             <div className="card-body">
                                 <h5 className="card-title">Real-Time Bidding</h5>
@@ -98,7 +110,7 @@ export default function LandingPage() {
                         </div>
                     </div>
                     <div className="col">
-                        <div className="card m-auto border-white" style={{width: "25rem"}}>
+                        <div className="card m-auto border-white" style={{ width: "25rem" }}>
                             <img src={smartphoneIcon} className="card-img-size" alt="..." />
                             <div className="card-body">
                                 <h5 className="card-title">Secure Mobile Checkout</h5>
@@ -108,7 +120,7 @@ export default function LandingPage() {
                     </div>
                 </div>
             </div>
-            <Footer/>
+            <Footer />
         </div>
     );
 }
