@@ -115,7 +115,7 @@ export default function AddProduct() {
                         <input name="payDate" type="date" className="form-control" id="exampleFormControlInput1" placeholder="" />
                     </div>
                     <div className="mb-3 text-end mt-4">
-                        <button type="submit" onClick={() => setIsRelease(false)} className="btn btn-danger">Draft</button> &nbsp;
+                        <button type="submit" onClick={() => setIsRelease(false)} className="btn btn-warning">Draft</button> &nbsp;
                         <button type="submit" onClick={() => setIsRelease(true)} className="btn btn-success">Release</button>
                     </div>
                 </div>
