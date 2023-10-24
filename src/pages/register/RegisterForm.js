@@ -1,8 +1,8 @@
-import { Link, useNavigate } from "react-router-dom";
-import logoIcon from "../assets/images/logo.svg"
-import { registerService } from "../services/authService";
-import { ROUTE } from "../constant/route";
-import { showToast } from "../utils/utilFunctions";
+import {Link, useNavigate} from "react-router-dom";
+import logoIcon from "../../assets/images/logo.svg"
+import {registerService} from "../../services/authService";
+import {ROUTE} from "../../constant/route";
+import {showToast} from "../../utils/utilFunctions";
 import {ToastContainer} from "react-toastify";
 
 export default function RegisterForm() {
@@ -24,18 +24,18 @@ export default function RegisterForm() {
                     showToast(res.data.status_code, res.data.message);
                 }
             }).catch((e) => {
-                showToast(e.response.status, e.message);
-            })
+            showToast(e.response.status, e.message);
+        })
     }
 
     return (
         <div className="container">
-            <div className="mx-auto py-5 my-3" style={{ width: "400px" }}>
+            <div className="mx-auto py-5 my-3" style={{width: "400px"}}>
                 <div className="text-center mb-3">
                     <Link to={`/`}>
-                        <img src={logoIcon} className="rounded" alt="..." style={{ width: "100px" }} />
+                        <img src={logoIcon} className="rounded" alt="..." style={{width: "100px"}}/>
                     </Link>
-                    <h2 className="mt-4" style={{ color: "#01377D" }}>Register</h2>
+                    <h2 className="mt-4" style={{color: "#01377D"}}>Register</h2>
                 </div>
                 <form className="border border-1 py-4 px-4 rounded-3" onSubmit={handleRegister}>
                     <div className="mb-3">
@@ -51,7 +51,7 @@ export default function RegisterForm() {
                         />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="role-names" className="form-label">Role</label><br />
+                        <label htmlFor="role-names" className="form-label">Role</label><br/>
                         <select name="role" id="role-names" className="form-control">
                             <option value="USER">Customer</option>
                             <option value="SELLER">Seller</option>

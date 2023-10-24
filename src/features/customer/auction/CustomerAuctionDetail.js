@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import store from "../../../redux/store";
 import {fetchHomeProductById} from "../../../pages/home/HomeSlice";
 
-export default function AuctionDetail() {
+export default function CustomerAuctionDetail() {
     const {id} = useParams();
 
     console.log(`fetchHomeProductById: ${id}`);

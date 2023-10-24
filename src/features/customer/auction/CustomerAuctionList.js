@@ -1,6 +1,19 @@
-import AuctionTile from "./AuctionTile";
+import CustomerAuctionTile from "./CustomerAuctionTile";
+import {useEffect} from "react";
+import store from "../../../redux/store";
+import {fetchCustomerAuctions} from "../CustomerSlice";
 
-export default function AuctionList() {
+export default function CustomerAuctionList() {
+
+    const {auctions} = store.getState().customerAuctions;
+    console.log("CustomerAuctionList:", auctions);
+
+    useEffect(() => {
+        store.dispatch(fetchCustomerAuctions()).then(value => {
+            console.log("fetchCustomerAuctions: ", value.payload.data);
+        });
+    }, []);
+
     return (
         <div className="container mt-5 mb-5">
             <div className="row d-flex justify-content-center">
@@ -15,7 +28,7 @@ export default function AuctionList() {
                         </div>
                     </div>
                     <div className="row">
-                        {[1, 2, 3, 4, 5, 6, 7].map(auction => <AuctionTile key={auction} {...{auction}}/>)}
+                        {auctions.map(auction => <CustomerAuctionTile key={auction.id} {...auction}/>)}
                     </div>
                 </div>
             </div>
