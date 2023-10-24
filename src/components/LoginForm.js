@@ -1,20 +1,31 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logoIcon from "../assets/images/logo.svg"
+import { loginService } from "../services/authService";
+import { ROUTE } from "../constant/route";
+import { showToast } from "../utils/utilFunctions";
+import {ToastContainer} from "react-toastify";
 
 export default function LoginForm() {
+
+    const navigate = useNavigate()
 
     function handleLogin(e) {
         e.preventDefault();
         const form = new FormData(e.currentTarget);
-        const email = form.get("email");
-        const password = form.get("password");
-        console.log({ email, password });
         const body = {};
         for (const [key, value] of form.entries()) {
             body[key] = value;
         }
-        console.log(body);
-        // Do Further input validation and submit the form
+        
+        loginService(body)
+            .then(res => {
+                if (res.data.message === "SUCCESS"){
+                    localStorage.setItem("isLogin", true)
+                    navigate(ROUTE.HOME)
+                }
+            }).catch((e)=>{
+                showToast(e.response.status, e.message);
+            })
     }
 
     return (
@@ -64,6 +75,7 @@ export default function LoginForm() {
                     </div>
                 </form>
             </div>
+            <ToastContainer/>
         </div>
     );
 }
