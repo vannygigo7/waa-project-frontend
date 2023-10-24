@@ -14,6 +14,7 @@ import RegisterForm from "./RegisterForm";
 import AddProduct from "../pages/home/components/AddProduct";
 import SellerAuctionList from "../features/seller/auction/SellerAuctionList";
 import SellerProductList from "../features/seller/product/SellerProductList";
+import SellerProductDetail from "../features/seller/product/SellerProductDetail";
 import UpdateProduct from "../pages/home/components/UpdateProduct";
 
 
@@ -33,6 +34,7 @@ export default function MyRoute() {
         {path: '/sellers/auctions', element: <SellerAuctionList/>},
         {path: '/sellers/auctions/:id', element: <SellerAuctionDetail/>},
         {path: '/sellers/products', element: <SellerProductList/>},
+        {path: '/sellers/products/:id', element: <SellerProductDetail/>},
         {path: '/products/add-new', element: <AddProduct/>},
         {path: '/products/edit/:id', element: <UpdateProduct/>},
     ]);
