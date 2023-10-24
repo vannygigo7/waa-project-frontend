@@ -4,6 +4,7 @@ export const ROUTE = {
     LOGIN: '/login',
     REGISTER: '/register',
     HOME: '/home',
+    SELLER_HOME: '/sellers/products',
     AUCTION: '/auctions',
     CUSTOMER_AUCTION: '/customers/auctions',
     CUSTOMER_AUCTION_DETAIL: '/customers/auctions/:id',

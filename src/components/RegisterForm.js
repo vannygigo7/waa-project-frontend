@@ -1,20 +1,31 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logoIcon from "../assets/images/logo.svg"
+import { registerService } from "../services/authService";
+import { ROUTE } from "../constant/route";
+import { showToast } from "../utils/utilFunctions";
+import {ToastContainer} from "react-toastify";
 
 export default function RegisterForm() {
+
+    const navigate = useNavigate();
 
     function handleRegister(e) {
         e.preventDefault();
         const form = new FormData(e.currentTarget);
-        const email = form.get("email");
-        const password = form.get("password");
-        console.log({ email, password });
         const body = {};
         for (const [key, value] of form.entries()) {
             body[key] = value;
         }
         console.log(body);
-        // Do Further input validation and submit the form
+        registerService(body)
+            .then(res => {
+                if (res.data.statusCode === 200) {
+                    navigate(ROUTE.LOGIN)
+                    showToast(res.data.status_code, res.data.message);
+                }
+            }).catch((e) => {
+                showToast(e.response.status, e.message);
+            })
     }
 
     return (
@@ -40,20 +51,10 @@ export default function RegisterForm() {
                         />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="gender-list" className="form-label"> Gender</label><br />
-                        <select name="gender" id="gender-list" className="form-control">
-                            <option value="male"></option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                        </select>
-                    </div>
-                    <div className="mb-3">
                         <label htmlFor="role-names" className="form-label">Role</label><br />
-                        <select name="roles" id="role-names" className="form-control">
-                            <option value="both"></option>
-                            <option value="customer">Customer</option>
-                            <option value="seller">Seller</option>
-                            <option value="both">Both</option>
+                        <select name="role" id="role-names" className="form-control">
+                            <option value="USER">Customer</option>
+                            <option value="SELLER">Seller</option>
                         </select>
                     </div>
                     <div className="mb-3">
@@ -81,6 +82,7 @@ export default function RegisterForm() {
                     </div>
                 </form>
             </div>
+            <ToastContainer/>
         </div>
     );
 }
