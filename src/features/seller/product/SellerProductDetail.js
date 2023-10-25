@@ -5,6 +5,7 @@ import {fetchProductById} from "./SellerProductSlice";
 import SellerProductDetailUnReleased from "./SellerProductDetailUnReleased";
 import SellerProductDetailReleasedRunning from "./SellerProductDetailReleasedRunning";
 import SellerProductDetailReleasedEnded from "./SellerProductDetailReleasedEnded";
+import {compareDates} from "../../../utils/utilFunctions";
 
 export default function SellerProductDetail() {
     const {id} = useParams();
@@ -26,8 +27,9 @@ export default function SellerProductDetail() {
     const checkBody = () => {
         if (product) {
             if (product.released) {
-                if (1 === 2) {
-                    return <SellerProductDetailReleasedEnded product={product}/>
+                const res = compareDates(new Date(), new Date(product.auction.bidDueDateTime));
+                if (res) {
+                    return <SellerProductDetailReleasedEnded product={product}/>;
                 } else {
                     return <SellerProductDetailReleasedRunning product={product}/>;
                 }
@@ -40,7 +42,8 @@ export default function SellerProductDetail() {
     }
 
     return (
-        <>{checkBody()}
+        <>
+            {checkBody()}
         </>
     );
 

@@ -36,7 +36,7 @@ export default function HomePage() {
             .catch(() => {
             });
     }
-
+    
     return (
         <div className="container mt-5 mb-5">
             <div className="row d-flex justify-content-center">

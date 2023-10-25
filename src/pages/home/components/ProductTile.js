@@ -46,8 +46,9 @@ export default function ProductTile(props) {
                                         onClick={goAuctionDetail}>Bid
                                 </button>
                                 <div className="align-self-end">
-                                    <small><i
-                                        className="bi bi-calendar"></i> {getLocalDateTime(product.auction.bidDueDateTime)}
+                                    <small>
+                                        Due: {getLocalDateTime(product.auction.bidDueDateTime)}
+                                        {/*<i className="bi bi-calendar"></i> {getLocalDateTime(product.auction.bidDueDateTime)}*/}
                                     </small>
                                 </div>
                             </div>

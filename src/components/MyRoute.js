@@ -18,6 +18,7 @@ import TestProductList from "../features/testproduct/TestProductList";
 import TestProductUpdate from "../features/testproduct/TestProductUpdate";
 import TestProductAdd from "../features/testproduct/TestProductAdd";
 import {ROUTE} from "../constant/route";
+import CustomerAuctionEnded from "../features/customer/auction/CustomerAuctionEnded";
 
 
 export default function MyRoute() {
@@ -35,7 +36,8 @@ export default function MyRoute() {
         {path: ROUTE.AUCTION, element: <HomePage/>},
         {path: ROUTE.AUCTION + '/:id', element: <AuctionDetail/>},
         {path: ROUTE.CUSTOMER_AUCTION, element: <CustomerAuctionList/>},
-        {path: ROUTE.CUSTOMER_AUCTION + '/:id', element: <CustomerAuctionDetail/>},
+        {path: ROUTE.CUSTOMER_AUCTION + '/:id', element: <CustomerAuctionEnded/>},
+        // {path: ROUTE.CUSTOMER_AUCTION + '/:id', element: <CustomerAuctionDetail/>},
         {path: ROUTE.SELLER_AUCTION, element: <SellerAuctionList/>},
         {path: ROUTE.SELLER_AUCTION + '/:id', element: <SellerAuctionDetail/>},
         {path: ROUTE.SELLER_PRODUCT, element: <SellerProductList/>},

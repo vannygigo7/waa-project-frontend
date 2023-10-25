@@ -1,18 +1,37 @@
 import CustomerAuctionTile from "./CustomerAuctionTile";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import store from "../../../redux/store";
 import {fetchCustomerAuctions} from "../CustomerSlice";
 
 export default function CustomerAuctionList() {
 
-    const {auctions} = store.getState().customerAuctions;
-    console.log("CustomerAuctionList:", auctions);
+    // const {customerAuctions} = store.getState().customerAuctions;
+    // const {auctions} = customerAuctions ? customerAuctions.auctions : [];
+    // console.log("CustomerAuctionList: ", customerAuctions);
+
+    const [auctions, setAuctions] = useState();
+
 
     useEffect(() => {
         store.dispatch(fetchCustomerAuctions()).then(value => {
             console.log("fetchCustomerAuctions: ", value.payload.data);
+            setAuctions(value.payload.data);
         });
     }, []);
+
+    const checkAuctions = () => {
+        if (auctions) {
+            return getAuctions();
+        } else {
+            return <></>;
+        }
+    }
+
+    const getAuctions = () => {
+        return (<div className="row">
+            {auctions.map(product => <CustomerAuctionTile key={product.id} product={product}/>)}
+        </div>);
+    }
 
     return (
         <div className="container mt-5 mb-5">
@@ -21,15 +40,14 @@ export default function CustomerAuctionList() {
                     <h2>My Bids</h2>
                     <div className="my-4">
                         <div className="d-flex justify-content-between">
-                            < input className="form-control" id="myInput" type="text" placeholder="Search Acutions..."/>
+                            < input className="form-control" id="myInput" type="text"
+                                    placeholder="Search Acutions..."/>
                             <div className="ms-1 align-self-end">
                                 <button className="btn btn-outline-secondary" type="button">Search</button>
                             </div>
                         </div>
                     </div>
-                    <div className="row">
-                        {auctions.map(auction => <CustomerAuctionTile key={auction.id} {...auction}/>)}
-                    </div>
+                    {checkAuctions()}
                 </div>
             </div>
         </div>

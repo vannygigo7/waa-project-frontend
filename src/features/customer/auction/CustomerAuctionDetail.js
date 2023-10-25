@@ -5,7 +5,6 @@ import {fetchHomeProductById} from "../../../pages/home/HomeSlice";
 
 export default function CustomerAuctionDetail() {
     const {id} = useParams();
-
     console.log(`fetchHomeProductById: ${id}`);
     const [product, setProduct] = useState(null);
 

@@ -27,3 +27,14 @@ export function getLocalDateTime(date) {
     const formattedTime = tempDate.toLocaleTimeString();
     return `${formattedDate} ${formattedTime}`;
 }
+
+export function compareDates(date1, date2) {
+    console.log(date1);
+    console.log(date2);
+    return date1 - date2 >= 0;
+}
+
+export function getNumberOfBidders(bidders) {
+    if (!bidders) return '0 person';
+    return bidders > 1 ? `${bidders} people` : `${bidders} person`;
+}

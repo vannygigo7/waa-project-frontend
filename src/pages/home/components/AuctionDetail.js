@@ -5,6 +5,7 @@ import {fetchHomeProductById} from "../HomeSlice";
 import {getLocalDateTime, showToast} from "../../../utils/utilFunctions";
 import {ToastContainer} from "react-toastify";
 import {addBid} from "../../../features/customer/CustomerSlice";
+import BidListComponent from "../../../components/BidList";
 
 export default function AuctionDetail() {
     const {id} = useParams();
@@ -12,12 +13,6 @@ export default function AuctionDetail() {
     // const {auctions} = store.getState().customerAuctions.auctions;
     // let product = auctions && auctions.map(auc => auc.id === (id * 1));
     const bidAmountInput = useRef();
-    const [timeLeft, setTimeLeft] = useState({
-        days: 0,
-        hours: 0,
-        minutes: 0,
-        seconds: 0
-    });
     console.log("AuctionDetail:", store.getState().customerAuctions);
     console.log("AuctionDetail 1:", id);
 
@@ -26,30 +21,12 @@ export default function AuctionDetail() {
             console.log("fetchHomeProductById: ", value.payload.data);
             setProduct(value.payload.data);
         });
-    }, []);
+        // =============
 
-    // useEffect(() => {
-    //     const targetDate = new Date(product.auction.bidDueDateTime);
-    //
-    //     const interval = setInterval(() => {
-    //         const now = new Date();
-    //         const difference = targetDate - now;
-    //
-    //         const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-    //         const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    //         const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-    //         const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-    //
-    //         setTimeLeft({days, hours, minutes, seconds});
-    //
-    //         if (difference < 0) {
-    //             clearInterval(interval);
-    //             setTimeLeft({days: 0, hours: 0, minutes: 0, seconds: 0});
-    //         }
-    //     }, 1000);
-    //
-    //     return () => clearInterval(interval);
-    // }, []);
+        // setInterval(() => {
+        //     console.log("setInterval");
+        // }, 1000);
+    }, []);
 
     const placeBid = () => {
         const bidAmount = bidAmountInput.current.value;
@@ -80,12 +57,11 @@ export default function AuctionDetail() {
                 <div className="mt-4 mb-3">
                     <h3 className="text-primary">Running</h3>
                     <div className="ml-2">
-                        <small className="dis-price">Current bid <h3>$ {product.auction.highestBid}</h3></small>
+                        <small className="dis-price">Highest bid <h3>${product.auction.highestBid}</h3></small>
                     </div>
                     <div className="my-3">
                         <h4>10:20:30</h4>
                         {/*{getTimer(timeLeft)}*/}
-                        {/*<p>{timeLeft.days} days, {timeLeft.hours} hours, {timeLeft.minutes} minutes, {timeLeft.seconds} seconds</p>*/}
                     </div>
                     <div className="align-self-end mt-2"><i className="bi bi-calendar"> </i>
                         Bidding due: {getLocalDateTime(product.auction.bidDueDateTime)}
@@ -151,57 +127,6 @@ export default function AuctionDetail() {
         );
     }
 
-    const showUnderline = (index, Arraylen) => {
-        return index < Arraylen - 1 ? <hr/> : '';
-    }
-
-    const getNumberOfBidders = (bidders) => {
-        if (!bidders) return '0 person';
-        return bidders > 1 ? `${bidders} people` : `${bidders} person`;
-    }
-
-    const getBids = () => {
-        return (
-            <div className="m-3">
-                <div className="row">
-                    <div className="d-flex justify-content-between">
-                        <div>
-                            <h2 className="mb-1">Bids</h2>
-                        </div>
-                        <div>
-                            <div className="d-flex justify-content-end">
-                                <small
-                                    className="text-muted">{getNumberOfBidders(product.auction.numberOfBidders)} </small>
-                            </div>
-                            <div className="d-flex justify-content-end">
-                                <small className="text-muted">{product.auction.bids.length} bids</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <hr/>
-                {product.auction.bids.map((bid, index) =>
-                    <div key={bid.id}>
-                        <div className="row">
-                            <div className="d-flex justify-content-between">
-                                <div>
-                                    <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
-                                         className="rounded-circle" style={{width: '50px'}} alt="Avatar"/>
-                                    <span className="ms-2">John Robin</span> <br/>
-                                </div>
-                                <div>
-                                    <div className="d-flex justify-content-end"><b
-                                        className="align-self-end">${bid.bidAmount}</b></div>
-                                    <div><small className="text-muted">{getLocalDateTime(bid.bidDateTime)}</small></div>
-                                </div>
-                            </div>
-                        </div>
-                        {showUnderline(index, product.auction.bids.length)}
-                    </div>
-                )}
-            </div>
-        );
-    }
 
     const getBody = () => {
         return (<div>
@@ -217,10 +142,9 @@ export default function AuctionDetail() {
                             </div>
                         </div>
                     </div>
-
                     <div className="col-md-4">
                         <div className="card">
-                            {getBids()}
+                            <BidListComponent product={product}/>
                         </div>
                     </div>
                 </div>
