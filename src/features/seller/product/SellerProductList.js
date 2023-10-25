@@ -1,6 +1,6 @@
 import { ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import store from "../../../redux/store";
 import { fetchProducts } from "./SellerProductSlice";
 import SellerProductTile from "./SellerProductTile";
@@ -10,6 +10,7 @@ import NavBar from "../../../components/NavBar";
 export default function SellerProductList() {
     const navigate = useNavigate();
     const { products } = store.getState().sellerProducts;
+    const [searchedProduct, setSearchedProduct] = useState([]);
     console.log("Seller ProductList===>", products);
 
     useEffect(() => {
@@ -24,16 +25,22 @@ export default function SellerProductList() {
         navigate(ROUTE.SELLER_PRODUCT_ADD);
     }
 
+    const handleSearch = (e) => {
+        const productsFound = products.filter(pro => pro.title.toLowerCase().includes(e.target.value.toLowerCase()));
+        setSearchedProduct(productsFound)
+        console.log("All pro: ", searchedProduct);
+    }
+
     return (
         <div>
-            <NavBar/>
+            <NavBar />
             <div className="container mt-5 mb-5">
                 <div className="row d-flex justify-content-center">
                     <div className="col-md-10">
                         <h2>Products</h2>
                         <div className="my-4">
                             <div className="d-flex justify-content-between">
-                                < input className="form-control" id="myInput" type="text" placeholder="Search products..." />
+                                < input className="form-control" id="myInput" type="text" placeholder="Search products..." onChange={(e) => handleSearch(e)} />
                                 <div className="ms-1 align-self-end">
                                     <button className="btn btn-primary" onClick={goNewProduct}> New</button>
                                 </div>
@@ -51,8 +58,14 @@ export default function SellerProductList() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {products.map((product, index) =>
-                                    <SellerProductTile key={index} {...{ index, product }} />
+                                {searchedProduct.length === 0 ? (
+                                    products.map((product, index) =>
+                                        <SellerProductTile key={index} {...{ index, product }} />
+                                    )
+                                ) : (
+                                    searchedProduct.map((product, index) =>
+                                        <SellerProductTile key={index} {...{ index, product }} />
+                                    )
                                 )}
                             </tbody>
                         </table>
