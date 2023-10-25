@@ -29,7 +29,7 @@ export default function SellerProductUpdate() {
             title,
             description,
             imageUrl,
-            categories: [{name: categories}],
+            categories: [categories],
             released,
             startPrice,
             depositAmount,
@@ -80,11 +80,10 @@ export default function SellerProductUpdate() {
                     </div>
                     <div className="mb-3">
                         <label htmlFor="category-names" className="form-label">Category</label><br/>
-                        <select name="categories" id="category-names" className="form-control"
-                                onChange={(e) => setCategories(e.target.value)}>
-                            {categories?.map((item, index) => (
-                                <option key={index} value={item.name}>{item.name}</option>
-                            ))}
+                        <select name="categories" id="category-names" className="form-control">
+                            <option value="phone">Phone</option>
+                            <option value="computer">Computer</option>
+                            <option value="car">Car</option>
                         </select>
                     </div>
                     <div className="mb-3">
