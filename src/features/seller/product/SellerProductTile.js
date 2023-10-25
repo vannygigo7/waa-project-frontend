@@ -9,7 +9,7 @@ export default function SellerProductTile(props) {
     const {product, index} = props;
 
     const goEditProduct = () => {
-        navigate(`/products/edit/${product.id}`)
+        navigate(`${ROUTE.SELLER_PRODUCT_UPDATE}/${product.id}`)
     }
 
     const goProductDetail = () => {
