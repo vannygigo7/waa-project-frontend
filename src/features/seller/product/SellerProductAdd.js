@@ -76,10 +76,8 @@ export default function SellerProductAdd() {
                     <div className="mb-3">
                         <label htmlFor="category-names" className="form-label">Category</label><br/>
                         <select name="categories" id="category-names" className="form-control">
-                            <option value="electronic">Electronic</option>
                             <option value="phone">Phone</option>
-                            <option value="laptop">Laptop</option>
-                            <option value="camera">Camera</option>
+                            <option value="computer">Computer</option>
                             <option value="car">Car</option>
                         </select>
                     </div>
