@@ -10,10 +10,19 @@ export default function SellerProductDetailUnReleased({product}) {
     console.log("SellerProductDetailUnReleased: ", product);
 
     const updateProductHandler = () => {
-        console.log("updateProduct: ", product.id);
-        const {id, data} = product;
-
-        store.dispatch(updateProduct({id, product: data})).then((res) => {
+        console.log("updateProduct: ", product);
+        const productUpdate = {
+            title: product?.title,
+            description: product?.description,
+            imageUrl: product?.imageUrl,
+            categories: product?.categories,
+            released: true,
+            startPrice: product?.auction?.startPrice,
+            depositAmount: product?.auction?.depositAmount,
+            bidDueDateTime: product?.auction?.bidDueDateTime,
+            payDate: product?.auction?.payDate
+        }
+        store.dispatch(updateProduct({id: product?.id, product: productUpdate})).then((res) => {
             navigate(ROUTE.SELLER_PRODUCT)
         }).catch((e) => {
             console.log("error updateProduct:", e);
@@ -25,16 +34,16 @@ export default function SellerProductDetailUnReleased({product}) {
                 <div className="mt-4 mb-3">
                     <h3 className="text-secondary">Unreleased</h3>
                     <div className="my-2">
-                        <small className="dis-price">Starting price <h3>${product.auction.startPrice}</h3></small>
+                        <small className="dis-price">Starting price <h3>${product?.auction?.startPrice}</h3></small>
                     </div>
                     <div className="align-self-end mt-2"><i className="bi bi-calendar"> </i>
-                        Bidding due: {getLocalDateTime(product.auction.bidDueDateTime)}
+                        Bidding due: {getLocalDateTime(product?.auction?.bidDueDateTime)}
                     </div>
                     <div className="align-self-end mt-2">
-                        <i className="bi bi-cash"> </i> Deposit amount: <b>${product.auction.depositAmount}</b>
+                        <i className="bi bi-cash"> </i> Deposit amount: <b>${product?.auction?.depositAmount}</b>
                     </div>
                     <div className="align-self-end mt-2">
-                        <i className="bi bi-calendar"> </i>Payment due: {product.auction.payDate}
+                        <i className="bi bi-calendar"> </i>Payment due: {product?.auction?.payDate}
                     </div>
                     <button className="btn btn-primary mr-2 mt-3 px-4" onClick={updateProductHandler}> Start Auction
                     </button>
