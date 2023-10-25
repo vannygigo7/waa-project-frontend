@@ -38,8 +38,8 @@ export default function AuctionDetail() {
             .then((value) => {
                 console.log("then state:", store.getState().customerAuctions);
                 console.log("then value:", value.payload);
-                const {statusCode, message} = value.payload.data;
-                setProduct(value.payload.data);
+                const {data, statusCode, message} = value.payload;
+                setProduct(data);
                 showToast(statusCode, message);
             })
             .catch((e) => {

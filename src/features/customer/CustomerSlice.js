@@ -38,8 +38,8 @@ export const addBid = createAsyncThunk(
     async ({auctionId, bidData}) => {
         const response = await customerService.addBid({auctionId, data: bidData});
         console.log("addBid http===>", response);
-        const {data, status, statusText} = response.data;
-        return {data, status, statusText};
+        const {data, statusCode, message} = response.data;
+        return {data, statusCode, message};
     }
 );
 

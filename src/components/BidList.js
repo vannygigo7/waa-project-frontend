@@ -28,9 +28,9 @@ export default function BidListComponent({product}) {
                     <div className="row">
                         <div className="d-flex justify-content-between">
                             <div>
-                                <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+                                <img src={bid.profileImageUrl}
                                      className="rounded-circle" style={{width: '50px'}} alt="Avatar"/>
-                                <span className="ms-2">John Robin</span> <br/>
+                                <span className="ms-2">{bid.firstName} {bid.lastName}</span> <br/>
                             </div>
                             <div>
                                 <div className="d-flex justify-content-end"><b
