@@ -4,6 +4,8 @@ import store from "../../redux/store";
 import ProductTile from "./components/ProductTile";
 import {fetchHomeProducts, searchHomeProducts} from "./HomeSlice";
 import NavBar from "../../components/NavBar";
+import { Link, Route } from "react-router-dom";
+import { ROUTE } from "../../constant/route";
 
 export default function HomePage() {
     const searchTextInput = useRef();
@@ -50,7 +52,13 @@ export default function HomePage() {
             <div className="container mt-5 mb-5">
                 <div className="row d-flex justify-content-center">
                     <div className="col-md-10">
-                        <h2>Creative Name</h2>
+                    <div className="d-flex justify-content-between">
+                        <div><h2>Auctions</h2></div>
+                        <div>
+                            <Link to={ROUTE.CUSTOMER_AUCTION}><h5>My Auctions</h5></Link>
+                        </div>
+                    </div>
+                        
                         <div className="my-4">
                             <div className="d-flex justify-content-between">
                                 <input ref={searchTextInput} className="form-control" id="myInput" type="text"
