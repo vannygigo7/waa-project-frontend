@@ -31,7 +31,7 @@ export default function NavBar() {
                     <img className="navbar-brand" src={logoIcon} style={{ width: "70px", height: "70px", marginLeft: "100px" }} />
                     {isLogin === "true" ? (
                         <div className="d-flex" style={{ marginRight: "100px" }}>
-                            <img src={user?.profileImageUrl} class="rounded-circle" alt="..." style={{ width: "50px", height: "50px" }}></img>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <img src={user?.profileImageUrl} className="rounded-circle" alt="..." style={{ width: "50px", height: "50px" }}></img>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <label className="mt-3">{user?.firstName}&nbsp;{user?.lastName}</label> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <button onClick={() => handleLogout()} className="btn signup-btn" style={{ marginRight: "10px"}}>Logout</button>
                         </div>
