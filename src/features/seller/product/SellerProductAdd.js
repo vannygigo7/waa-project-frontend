@@ -1,11 +1,14 @@
 import {useState} from "react";
 import {addProduct} from "./SellerProductSlice";
 import store from "../../../redux/store";
+import { useNavigate } from "react-router-dom";
+import { ROUTE } from "../../../constant/route";
 
 
 export default function SellerProductAdd() {
 
     const [isRelease, setIsRelease] = useState(false);
+    const navigate = useNavigate();
 
     function handleGetDataAndSubmit(e) {
         e.preventDefault();
@@ -36,7 +39,7 @@ export default function SellerProductAdd() {
         console.log("Product: ", product);
 
         store.dispatch(addProduct({product})).then((res) => {
-            console.log("addProduct:", res);
+            navigate(ROUTE.SELLER_PRODUCT)
         }).catch((e) => {
             console.log("error addProduct:", e);
         });

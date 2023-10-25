@@ -16,7 +16,6 @@ export default function LoginForm() {
         for (const [key, value] of form.entries()) {
             body[key] = value;
         }
-
         loginService(body)
             .then(res => {
                 if (res.data.message === "SUCCESS") {

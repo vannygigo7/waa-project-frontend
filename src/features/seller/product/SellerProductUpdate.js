@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import store from "../../../redux/store";
 import { updateProduct } from "../../../features/seller/product/SellerProductSlice";
+import { ROUTE } from "../../../constant/route";
 
 
 export default function SellerProductUpdate() {
@@ -19,31 +20,7 @@ export default function SellerProductUpdate() {
     const [bidDueTime, setBidDueTime] = useState();
     const [payDate, setPayDate] = useState();
 
-
-    function getProductById(id) {
-        const auction = {
-            startPrice: 10,
-            depositAmount: 10,
-            highestBid: 10,
-            bidDueDateTime: "2023-10-10 00:10:20",
-            payDate: "2023-10-10",
-            bids: [],
-            winner: null
-
-        }
-
-        const productObj = {
-            id,
-            title: "test",
-            description: "test",
-            released: true,
-            categories: [{name: "test"}, {name: "test1"}],
-            seller: null,
-            auction
-        }
-
-        return productObj;
-    }
+    const navigate = useNavigate();
 
     function handleUpdate(e) {
         e.preventDefault();
@@ -62,7 +39,7 @@ export default function SellerProductUpdate() {
 
         console.log("Product: ", product);
         store.dispatch(updateProduct({id, product})).then((res)=>{
-            console.log("updateProduct:", res);
+            navigate(ROUTE.SELLER_PRODUCT)
         }).catch((e)=>{
             console.log("error updateProduct:", e);
         });

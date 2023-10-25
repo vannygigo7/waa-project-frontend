@@ -16,7 +16,6 @@ export default function RegisterForm() {
         for (const [key, value] of form.entries()) {
             body[key] = value;
         }
-        console.log(body);
         registerService(body)
             .then(res => {
                 if (res.data.statusCode === 200) {
@@ -45,6 +44,42 @@ export default function RegisterForm() {
                         <input
                             type="email"
                             name="email"
+                            className="form-control"
+                            id="exampleInputEmail1"
+                            aria-describedby="emailHelp"
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="exampleInputEmail1" className="form-label">
+                            First name
+                        </label>
+                        <input
+                            type="text"
+                            name="firstName"
+                            className="form-control"
+                            id="exampleInputEmail1"
+                            aria-describedby="emailHelp"
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="exampleInputEmail1" className="form-label">
+                            Last name
+                        </label>
+                        <input
+                            type="text"
+                            name="lastName"
+                            className="form-control"
+                            id="exampleInputEmail1"
+                            aria-describedby="emailHelp"
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="exampleInputEmail1" className="form-label">
+                            Image Url
+                        </label>
+                        <input
+                            type="text"
+                            name="profileImageUrl"
                             className="form-control"
                             id="exampleInputEmail1"
                             aria-describedby="emailHelp"
