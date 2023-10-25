@@ -26,19 +26,19 @@ export default function SellerProductList() {
 
     return (
         <div>
-            <NavBar/>
+            <NavBar />
             <div className="container mt-5 mb-5">
                 <div className="row d-flex justify-content-center">
                     <div className="col-md-10">
-                        <h2>Products</h2>
                         <div className="my-4">
                             <div className="d-flex justify-content-between">
-                                < input className="form-control" id="myInput" type="text" placeholder="Search products..." />
+                                <h2>Products</h2>
                                 <div className="ms-1 align-self-end">
                                     <button className="btn btn-primary" onClick={goNewProduct}> New</button>
                                 </div>
                             </div>
                         </div>
+                        < input className="form-control mb-3" id="myInput" type="text" placeholder="Search products..." />
                         <table className="table">
                             <thead className="thead-dark">
                                 <tr>

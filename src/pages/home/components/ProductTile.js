@@ -1,11 +1,11 @@
-import {useNavigate} from "react-router-dom";
-import {getLocalDateTime} from "../../../utils/utilFunctions";
-import {ROUTE} from "../../../constant/route";
+import { useNavigate } from "react-router-dom";
+import { getLocalDateTime } from "../../../utils/utilFunctions";
+import { ROUTE } from "../../../constant/route";
 
 export default function ProductTile(props) {
     const navigate = useNavigate();
 
-    const {product} = props;
+    const { product } = props;
 
     const goAuctionDetail = () => {
         navigate(ROUTE.AUCTION + `/${product.id}`);
@@ -19,8 +19,8 @@ export default function ProductTile(props) {
                         <div className="images p-2">
                             <div className="text-center">
                                 <img className="rounded"
-                                     src={product.imageUrl}
-                                     width="200px" height="200px" alt=""/>
+                                    src={product.imageUrl}
+                                    width="200px" height="200px" alt="" />
                             </div>
                         </div>
                     </div>
@@ -43,11 +43,11 @@ export default function ProductTile(props) {
 
                             <div className="cart mt-2 d-flex justify-content-between">
                                 <button className="btn btn-primary px-4"
-                                        onClick={goAuctionDetail}>Bid
+                                    onClick={goAuctionDetail}>Bid
                                 </button>
                                 <div className="align-self-end">
                                     <small>
-                                        Due: {getLocalDateTime(product.auction.bidDueDateTime)}
+                                        End: {getLocalDateTime(product.auction.bidDueDateTime)}
                                         {/*<i className="bi bi-calendar"></i> {getLocalDateTime(product.auction.bidDueDateTime)}*/}
                                     </small>
                                 </div>

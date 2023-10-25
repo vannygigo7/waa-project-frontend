@@ -1,5 +1,5 @@
-import {toast} from "react-toastify";
-import {TOAST_DISPLAY_DURATION} from "../constant/constant";
+import { toast } from "react-toastify";
+import { TOAST_DISPLAY_DURATION } from "../constant/constant";
 
 export function showToast(statusCode, message, duration = TOAST_DISPLAY_DURATION) {
     if (statusCode >= 200 && statusCode <= 299) {
@@ -37,4 +37,18 @@ export function compareDates(date1, date2) {
 export function getNumberOfBidders(bidders) {
     if (!bidders) return '0 person';
     return bidders > 1 ? `${bidders} people` : `${bidders} person`;
+}
+
+export const getTimerFormat = (time) => {
+    let res = '';
+    if (time.days > 0)
+        res += time.days + ' days, ';
+    if (time.hours >= 0)
+        res += time.hours + ':';
+    if (time.minutes >= 0)
+        res += time.minutes + ':';
+    if (time.seconds >= 0)
+        res += time.seconds;
+
+    return res;
 }
