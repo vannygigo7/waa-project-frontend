@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import {useEffect, useRef, useState} from "react";
 import store from "../../redux/store";
 
 import ProductTile from "./components/ProductTile";
-import { fetchHomeProducts, searchHomeProducts } from "./HomeSlice";
+import {fetchHomeProducts, searchHomeProducts} from "./HomeSlice";
 import NavBar from "../../components/NavBar";
 
 export default function HomePage() {
@@ -12,6 +12,10 @@ export default function HomePage() {
     console.log("HomePage: ", store.getState().homeProducts);
 
     useEffect(() => {
+        loadProducts();
+    }, []);
+
+    const loadProducts = () => {
         store.dispatch(fetchHomeProducts())
             .then((value) => {
                 console.log("fetchHomeProducts 1:", value);
@@ -20,15 +24,17 @@ export default function HomePage() {
             })
             .catch(() => {
             });
-    }, []);
+    }
+
 
     const searchHandler = () => {
         const searchValue = searchTextInput.current.value;
         if (!searchValue) {
+            loadProducts();
             return;
         }
 
-        store.dispatch(searchHomeProducts({ name: searchValue }))
+        store.dispatch(searchHomeProducts({name: searchValue}))
             .then((value) => {
                 console.log("searchHomeProducts 1:", value);
                 setProducts(value.payload.data);
@@ -37,10 +43,10 @@ export default function HomePage() {
             .catch(() => {
             });
     }
-    
+
     return (
         <div>
-            <NavBar />
+            <NavBar/>
             <div className="container mt-5 mb-5">
                 <div className="row d-flex justify-content-center">
                     <div className="col-md-10">
@@ -48,15 +54,15 @@ export default function HomePage() {
                         <div className="my-4">
                             <div className="d-flex justify-content-between">
                                 <input ref={searchTextInput} className="form-control" id="myInput" type="text"
-                                    placeholder="Search products..." />
+                                       placeholder="Search products..."/>
                                 <div className="ms-1 align-self-end">
                                     <button onClick={searchHandler} className="btn btn-outline-secondary"
-                                        type="button">Search
+                                            type="button">Search
                                     </button>
                                 </div>
                             </div>
                         </div>
-                        {products && products.map(product => <ProductTile key={product.id} {...{ product }} />)}
+                        {products && products.map(product => <ProductTile key={product.id} {...{product}} />)}
                     </div>
                 </div>
             </div>
