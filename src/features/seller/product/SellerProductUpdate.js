@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import {useEffect, useState} from "react";
+import {useNavigate, useParams} from "react-router-dom";
 import store from "../../../redux/store";
-import { updateProduct } from "../../../features/seller/product/SellerProductSlice";
-import { ROUTE } from "../../../constant/route";
+import {updateProduct} from "./SellerProductSlice";
+import {ROUTE} from "../../../constant/route";
 
 
 export default function SellerProductUpdate() {
@@ -38,9 +38,9 @@ export default function SellerProductUpdate() {
         }
 
         console.log("Product: ", product);
-        store.dispatch(updateProduct({id, product})).then((res)=>{
+        store.dispatch(updateProduct({id, product})).then((res) => {
             navigate(ROUTE.SELLER_PRODUCT)
-        }).catch((e)=>{
+        }).catch((e) => {
             console.log("error updateProduct:", e);
         });
 
@@ -89,7 +89,8 @@ export default function SellerProductUpdate() {
                     </div>
                     <div className="mb-3">
                         <label htmlFor="exampleFormControlInput1" className="form-label">Image url</label>
-                        <input value={imageUrl} name="imageUrl" type="text" className="form-control" id="exampleFormControlInput1" onChange={(e) => setImageUrl(e.target.value)} />
+                        <input value={imageUrl} name="imageUrl" type="text" className="form-control"
+                               id="exampleFormControlInput1" onChange={(e) => setImageUrl(e.target.value)}/>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="exampleFormControlTextarea1" className="form-label">Description</label>
@@ -133,8 +134,10 @@ export default function SellerProductUpdate() {
                                id="exampleFormControlInput1" onChange={(e) => setPayDate(e.target.value)}/>
                     </div>
                     <div className="mb-3 text-end mt-4">
-                        <button type="submit" className="btn btn-warning">Save</button> &nbsp;
-                        <button type="submit" className="btn btn-success" onClick={() => setReleased(true)}>Release</button>
+                        <button type="submit" className="btn btn-warning">Save</button>
+                        &nbsp;
+                        <button type="submit" className="btn btn-success" onClick={() => setReleased(true)}>Release
+                        </button>
                     </div>
                 </div>
             </form>

@@ -28,9 +28,10 @@ export default function BidListComponent({product}) {
                     <div className="row">
                         <div className="d-flex justify-content-between">
                             <div>
-                                <img src={bid.profileImageUrl}
-                                     className="rounded-circle" style={{width: '50px'}} alt="Avatar"/>
-                                <span className="ms-2">{bid.firstName} {bid.lastName}</span> <br/>
+                                <img src={bid.customer.profileImageUrl} className="rounded-circle"
+                                     style={{width: '50px'}}
+                                     alt="Avatar"/>
+                                <span className="ms-2">{bid.customer.firstName} {bid.customer.lastName}</span> <br/>
                             </div>
                             <div>
                                 <div className="d-flex justify-content-end"><b

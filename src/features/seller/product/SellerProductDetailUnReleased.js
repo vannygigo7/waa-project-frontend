@@ -1,7 +1,24 @@
 import ProductComponent from "../../../components/Product";
+import store from "../../../redux/store";
+import {ROUTE} from "../../../constant/route";
+import {useNavigate} from "react-router-dom";
+import {updateProduct} from "./SellerProductSlice";
+import {getLocalDateTime} from "../../../utils/utilFunctions";
 
 export default function SellerProductDetailUnReleased({product}) {
+    const navigate = useNavigate();
     console.log("SellerProductDetailUnReleased: ", product);
+
+    const updateProductHandler = () => {
+        console.log("updateProduct: ", product.id);
+        const {id, data} = product;
+
+        store.dispatch(updateProduct({id, product: data})).then((res) => {
+            navigate(ROUTE.SELLER_PRODUCT)
+        }).catch((e) => {
+            console.log("error updateProduct:", e);
+        });
+    }
     const getAuction = () => {
         return (
             <div className="me-3">
@@ -11,7 +28,7 @@ export default function SellerProductDetailUnReleased({product}) {
                         <small className="dis-price">Starting price <h3>${product.auction.startPrice}</h3></small>
                     </div>
                     <div className="align-self-end mt-2"><i className="bi bi-calendar"> </i>
-                        {/*Bidding due: {product.auction.bidDueDateTime}*/}
+                        Bidding due: {getLocalDateTime(product.auction.bidDueDateTime)}
                     </div>
                     <div className="align-self-end mt-2">
                         <i className="bi bi-cash"> </i> Deposit amount: <b>${product.auction.depositAmount}</b>
@@ -19,8 +36,7 @@ export default function SellerProductDetailUnReleased({product}) {
                     <div className="align-self-end mt-2">
                         <i className="bi bi-calendar"> </i>Payment due: {product.auction.payDate}
                     </div>
-                    <button className="btn btn-primary mr-2 mt-3 px-4" onClick={() => {
-                    }}> Start Auction
+                    <button className="btn btn-primary mr-2 mt-3 px-4" onClick={updateProductHandler}> Start Auction
                     </button>
                 </div>
 
