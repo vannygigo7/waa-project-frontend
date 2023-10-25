@@ -23,9 +23,6 @@ export default function AuctionDetail() {
         });
         // =============
 
-        // setInterval(() => {
-        //     console.log("setInterval");
-        // }, 1000);
     }, []);
 
     const placeBid = () => {
