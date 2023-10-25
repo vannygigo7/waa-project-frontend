@@ -1,9 +1,9 @@
-import {useEffect, useState} from "react";
-import {getLocalDateTime} from "../../../utils/utilFunctions";
+import { useEffect, useState } from "react";
+import { getLocalDateTime, getTimerFormat } from "../../../utils/utilFunctions";
 import ProductComponent from "../../../components/Product";
 import BidListComponent from "../../../components/BidList";
 
-export default function SellerProductDetailReleasedRunning({product}) {
+export default function SellerProductDetailReleasedRunning({ product }) {
     const [timeLeft, setTimeLeft] = useState({
         days: 0,
         hours: 0,
@@ -24,32 +24,15 @@ export default function SellerProductDetailReleasedRunning({product}) {
             const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-            setTimeLeft({days, hours, minutes, seconds});
-            console.log(seconds);
+            setTimeLeft({ days, hours, minutes, seconds });
             if (difference < 0) {
                 clearInterval(interval);
-                setTimeLeft({days: 0, hours: 0, minutes: 0, seconds: 0});
+                setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
             }
         }, 1000);
 
         return () => clearInterval(interval);
     }, []);
-
-    const getTimer = (time) => {
-        let res = '';
-        if (time.days > 0)
-            res += time.days + 'days, ';
-        if (time.hours > 0)
-            res += time.hours + ':';
-        if (time.minutes > 0)
-            res += time.minutes + ':';
-        if (time.seconds > 0)
-            res += time.seconds;
-
-        return (
-            <h4>{res}</h4>
-        );
-    }
 
     const getRunningAuction = () => {
         return (
@@ -60,8 +43,7 @@ export default function SellerProductDetailReleasedRunning({product}) {
                         <small className="dis-price">Current bid <h3>${product.auction.highestBid}</h3></small>
                     </div>
                     <div className="my-3">
-                        {/*<h4>10:20:30</h4>*/}
-                        {getTimer(timeLeft)}
+                        <h4>{getTimerFormat(timeLeft)}</h4>
                     </div>
                     <div className="align-self-end mt-2"><i className="bi bi-calendar"> </i>
                         Bidding due: {getLocalDateTime(product.auction.bidDueDateTime)}
@@ -72,9 +54,6 @@ export default function SellerProductDetailReleasedRunning({product}) {
                     <div className="align-self-end mt-2">
                         <i className="bi bi-calendar"> </i>Payment due: {product.auction.payDate}
                     </div>
-                    {/*<button className="btn btn-danger mr-2 mt-3 px-4" onClick={() => {*/}
-                    {/*}}> End Auction*/}
-                    {/*</button>*/}
                 </div>
 
             </div>
@@ -82,7 +61,7 @@ export default function SellerProductDetailReleasedRunning({product}) {
     }
 
     const getProductBody = () => {
-        return <ProductComponent product={product}/>;
+        return <ProductComponent product={product} />;
     }
 
     return (
@@ -102,7 +81,7 @@ export default function SellerProductDetailReleasedRunning({product}) {
 
                     <div className="col-md-4">
                         <div className="card">
-                            <BidListComponent product={product}/>
+                            <BidListComponent product={product} />
                         </div>
                     </div>
                 </div>

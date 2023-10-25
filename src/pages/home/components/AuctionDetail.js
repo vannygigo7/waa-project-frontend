@@ -1,29 +1,53 @@
-import {useParams} from "react-router-dom";
-import {useEffect, useRef, useState} from "react";
+import { useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
 import store from "../../../redux/store";
-import {fetchHomeProductById} from "../HomeSlice";
-import {getLocalDateTime, showToast} from "../../../utils/utilFunctions";
-import {ToastContainer} from "react-toastify";
-import {addBid} from "../../../features/customer/CustomerSlice";
+import { fetchHomeProductById, getHomeProductById } from "../HomeSlice";
+import { getLocalDateTime, getTimerFormat, showToast } from "../../../utils/utilFunctions";
+import { ToastContainer } from "react-toastify";
+import { addBid } from "../../../features/customer/CustomerSlice";
 import BidListComponent from "../../../components/BidList";
 
 export default function AuctionDetail() {
-    const {id} = useParams();
+    const { id } = useParams();
     const [product, setProduct] = useState(null);
-    // const {auctions} = store.getState().customerAuctions.auctions;
-    // let product = auctions && auctions.map(auc => auc.id === (id * 1));
     const bidAmountInput = useRef();
-    console.log("AuctionDetail:", store.getState().customerAuctions);
-    console.log("AuctionDetail 1:", id);
+    const [timeLeft, setTimeLeft] = useState({
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0
+    });
+    let interval;
 
     useEffect(() => {
-        store.dispatch(fetchHomeProductById({id})).then(value => {
+        store.dispatch(fetchHomeProductById({ id })).then(value => {
             console.log("fetchHomeProductById: ", value.payload.data);
+            const p = value.payload.data;
             setProduct(value.payload.data);
+            interval = startTimer(p.auction.bidDueDateTime);
         });
-        // =============
 
+        return () => clearInterval(interval);
     }, []);
+
+    const startTimer = (bidDueDateTime) => {
+        const targetDate = new Date(bidDueDateTime);
+        return setInterval(() => {
+            const now = new Date();
+            const difference = targetDate - now;
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            setTimeLeft({ days, hours, minutes, seconds });
+            if (difference < 0) {
+                clearInterval(interval);
+                setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+            }
+        }, 1000);
+    }
 
     const placeBid = () => {
         const bidAmount = bidAmountInput.current.value;
@@ -32,13 +56,11 @@ export default function AuctionDetail() {
             showToast(false, "your bid must be higher than current bid.", 3000);
             return;
         }
-        console.log(`ok bid: ${bidAmountInput.current.value}`);
-        const bidData = {"bidAmount": bidAmount};
-        store.dispatch(addBid({auctionId: id, bidData}))
+        const bidData = { "bidAmount": bidAmount };
+        store.dispatch(addBid({ auctionId: id, bidData }))
             .then((value) => {
-                console.log("then state:", store.getState().customerAuctions);
                 console.log("then value:", value.payload);
-                const {data, statusCode, message} = value.payload;
+                const { data, statusCode, message } = value.payload;
                 setProduct(data);
                 showToast(statusCode, message);
             })
@@ -47,6 +69,7 @@ export default function AuctionDetail() {
                 showToast(false, 'failed to bid');
             });
     }
+
 
     const getRunningAuction = () => {
         return (
@@ -57,8 +80,8 @@ export default function AuctionDetail() {
                         <small className="dis-price">Highest bid <h3>${product.auction.highestBid}</h3></small>
                     </div>
                     <div className="my-3">
-                        <h4>10:20:30</h4>
-                        {/*{getTimer(timeLeft)}*/}
+                        <h4>{getTimerFormat(timeLeft)}</h4>
+
                     </div>
                     <div className="align-self-end mt-2"><i className="bi bi-calendar"> </i>
                         Bidding due: {getLocalDateTime(product.auction.bidDueDateTime)}
@@ -69,15 +92,12 @@ export default function AuctionDetail() {
                     <div className="align-self-end mt-2">
                         <i className="bi bi-calendar"> </i>Payment due: {product.auction.payDate}
                     </div>
-                    {/*<button className="btn btn-danger mr-2 mt-3 px-4" onClick={() => {*/}
-                    {/*}}> End Auction*/}
-                    {/*</button>*/}
                     <div className="cart mt-4 align-items-center">
                         <label className="mb-2">
                             Please increase your bid at least <b>$1</b>
                         </label>
                         <input ref={bidAmountInput} type="number" className="form-control"
-                               placeholder="Enter amount"/>
+                            placeholder="Enter amount" />
                         <button className="btn btn-primary mr-2 mt-3 px-4" onClick={placeBid}> Place Bid
                         </button>
                     </div>
@@ -92,8 +112,8 @@ export default function AuctionDetail() {
                 <div className="images ">
                     <div className="text-center p-4">
                         <img className="rounded"
-                             src={product.imageUrl}
-                             width="100%" alt=""/>
+                            src={product.imageUrl}
+                            width="100%" alt="" />
                     </div>
                 </div>
                 <div className="ms-4">
@@ -141,12 +161,12 @@ export default function AuctionDetail() {
                     </div>
                     <div className="col-md-4">
                         <div className="card">
-                            <BidListComponent product={product}/>
+                            <BidListComponent product={product} />
                         </div>
                     </div>
                 </div>
             </div>
-            <ToastContainer/>
+            <ToastContainer />
         </div>);
     }
 

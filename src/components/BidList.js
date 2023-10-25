@@ -1,8 +1,9 @@
-import {getLocalDateTime, getNumberOfBidders} from "../utils/utilFunctions";
+import { getLocalDateTime, getNumberOfBidders } from "../utils/utilFunctions";
 
-export default function BidListComponent({product}) {
+export default function BidListComponent({ product }) {
     const showUnderline = (index, Arraylen) => {
-        return index < Arraylen - 1 ? <hr/> : '';
+        // return index < Arraylen - 1 ? <hr /> : '';
+        return index > 0 ? <hr /> : '';
     }
     return (
         <div className="m-3">
@@ -22,27 +23,29 @@ export default function BidListComponent({product}) {
                     </div>
                 </div>
             </div>
-            <hr/>
-            {product.auction.bids.map((bid, index) =>
-                <div key={bid.id}>
-                    <div className="row">
-                        <div className="d-flex justify-content-between">
-                            <div>
-                                <img src={bid.customer.profileImageUrl} className="rounded-circle"
-                                     style={{width: '50px'}}
-                                     alt="Avatar"/>
-                                <span className="ms-2">{bid.customer.firstName} {bid.customer.lastName}</span> <br/>
-                            </div>
-                            <div>
-                                <div className="d-flex justify-content-end"><b
-                                    className="align-self-end">${bid.bidAmount}</b></div>
-                                <div><small className="text-muted">{getLocalDateTime(bid.bidDateTime)}</small></div>
+            <hr />
+            <div className="d-flex flex-column-reverse">
+                {product.auction.bids.map((bid, index) =>
+                    <div key={bid.id}>
+                        <div className="row">
+                            <div className="d-flex justify-content-between">
+                                <div>
+                                    <img src={bid.customer.profileImageUrl} className="rounded-circle"
+                                        style={{ width: '50px' }}
+                                        alt="Avatar" />
+                                    <span className="ms-2">{bid.customer.firstName} {bid.customer.lastName}</span> <br />
+                                </div>
+                                <div>
+                                    <div className="d-flex justify-content-end"><b
+                                        className="align-self-end">${bid.bidAmount}</b></div>
+                                    <div><small className="text-muted">{getLocalDateTime(bid.bidDateTime)}</small></div>
+                                </div>
                             </div>
                         </div>
+                        {showUnderline(index, product.auction.bids.length)}
                     </div>
-                    {showUnderline(index, product.auction.bids.length)}
-                </div>
-            )}
+                )}
+            </div>
         </div>
     );
 }
