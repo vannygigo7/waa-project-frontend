@@ -50,7 +50,7 @@ export default function CustomerAuctionList() {
         <div className="container mt-5 mb-5">
             <div className="row d-flex justify-content-center">
                 <div className="col-md-12">
-                    <h2>Bids History</h2>
+                    <h2>My Bids</h2>
                     <div className="my-4">
                         <div className="d-flex justify-content-between">
                             < input className="form-control" id="myInput" type="text" onChange={(e) => handleSearch(e)}

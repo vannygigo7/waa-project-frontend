@@ -55,7 +55,7 @@ export default function HomePage() {
                         <div className="d-flex justify-content-between">
                             <div><h2>Auctions</h2></div>
                             <div>
-                                <Link to={ROUTE.CUSTOMER_AUCTION}><h5>Bids History</h5></Link>
+                                <Link to={ROUTE.CUSTOMER_AUCTION}><h5>My Bids</h5></Link>
                             </div>
                         </div>
 
